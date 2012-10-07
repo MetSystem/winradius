@@ -1,0 +1,5 @@
+#define LOGDIR		"F:\\radius\\winrad\\log\\radius"
+#define RADDBDIR	"F:\\radius\\winrad\\raddb"
+#define RUNDIR		"F:\\radius\\winrad\\run"
+#define SBINDIR		"F:\\radius\\winrad\\sbin"
+#define RADIR		"F:\\radius\\winrad\\log\\radius\\radacct"

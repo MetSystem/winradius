@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRadius", "WinRadius\WinRadius.vcproj", "{641E852A-349A-4F7A-BC97-DCA6E40094AE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "util-test", "util-test\util-test.vcproj", "{9D5C16A3-F0AC-4705-9CED-B66DBBB6F98D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRadiusClient", "WinRadiusClient\WinRadiusClient.vcproj", "{61A3B409-D9BF-4CA5-A2B7-BC523C07A7D3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winradiusd", "winradiusd\winradiusd.vcproj", "{2A402555-8126-4A05-AE98-CA2D40440CF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{641E852A-349A-4F7A-BC97-DCA6E40094AE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{641E852A-349A-4F7A-BC97-DCA6E40094AE}.Debug|Win32.Build.0 = Debug|Win32
+		{641E852A-349A-4F7A-BC97-DCA6E40094AE}.Release|Win32.ActiveCfg = Release|Win32
+		{641E852A-349A-4F7A-BC97-DCA6E40094AE}.Release|Win32.Build.0 = Release|Win32
+		{9D5C16A3-F0AC-4705-9CED-B66DBBB6F98D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9D5C16A3-F0AC-4705-9CED-B66DBBB6F98D}.Debug|Win32.Build.0 = Debug|Win32
+		{9D5C16A3-F0AC-4705-9CED-B66DBBB6F98D}.Release|Win32.ActiveCfg = Release|Win32
+		{9D5C16A3-F0AC-4705-9CED-B66DBBB6F98D}.Release|Win32.Build.0 = Release|Win32
+		{61A3B409-D9BF-4CA5-A2B7-BC523C07A7D3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{61A3B409-D9BF-4CA5-A2B7-BC523C07A7D3}.Debug|Win32.Build.0 = Debug|Win32
+		{61A3B409-D9BF-4CA5-A2B7-BC523C07A7D3}.Release|Win32.ActiveCfg = Release|Win32
+		{61A3B409-D9BF-4CA5-A2B7-BC523C07A7D3}.Release|Win32.Build.0 = Release|Win32
+		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Debug|Win32.Build.0 = Debug|Win32
+		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Release|Win32.ActiveCfg = Release|Win32
+		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
