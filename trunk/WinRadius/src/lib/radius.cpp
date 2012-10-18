@@ -305,10 +305,14 @@ ssize_t rad_recv_header(int sockfd, fr_ipaddr_t *src_ipaddr, int *src_port,
 
 	data_len = recvfrom(sockfd, (char *)header, sizeof(header), MSG_PEEK,
 			    (struct sockaddr *)&src, &sizeof_src);
-	if (data_len < 0) {
-		if ((errno == EAGAIN) || (errno == EINTR)) return 0;
-		return -1;
-	}
+
+	//on windows os ,data_len is always -1 .then comment blow if block.then set data_len =4;
+	//if (data_len < 0) {
+	//	if ((errno == EAGAIN) || (errno == EINTR)) return 0;
+	//	return -1;
+	//}
+
+	data_len =4;
 
 	/*
 	 *	Too little data is available, discard the packet.
