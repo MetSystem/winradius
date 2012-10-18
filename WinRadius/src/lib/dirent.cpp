@@ -1,12 +1,19 @@
 
 #include "stdafx.h"
+
 #include <stdlib.h>
 #include <windows.h>
 #include <winbase.h>
+#include <WinNT.h>
+
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <errno.h>
 #include <freeradius-devel/dirent.h>
+
+#include <string>
+
+using namespace std;
 
 static WIN32_FIND_DATA file_data; 
 static HANDLE hSearch; 
@@ -14,6 +21,9 @@ static DIR find_dir;
 static _dirent find_file;
 static WIN32_FIND_DATA FileData; 
 static BOOL is_first_find ;
+
+
+
 
 static char* rad_str_replace(char *v)
 {
@@ -52,20 +62,25 @@ DIR *opendir(const char *dir_name)
 
 struct dirent * readdir(DIR *dir)
 {
-	
+	wchar_t tmp[_MAX_PATH];
+	char buf[_MAX_PATH];
 	//printf("list file:%s\r\n",buf);
 	if (!is_first_find){
-		char buf[_MAX_PATH];
+		
 		memset(buf,0,_MAX_PATH);
 		sprintf(buf,"%s\\%s",dir->dir_name,"*.*");
 
-		hSearch = FindFirstFile(buf, &FileData); 
+		
+		mbstowcs(tmp,buf,strlen(buf));
+
+		hSearch = FindFirstFile(tmp, &FileData); 
 		if (hSearch == INVALID_HANDLE_VALUE) 
 		{ 
 			return NULL;
 		} 
 		is_first_find = TRUE;
-		strcpy(find_file.d_name,FileData.cFileName);
+		wcstombs(buf,FileData.cFileName,wcslen(FileData.cFileName));
+		strcpy(find_file.d_name,buf);
 		dir->hSearch = hSearch;
 		return &find_file;
 	}
@@ -75,7 +90,7 @@ struct dirent * readdir(DIR *dir)
 
 		return NULL;
 	}
-	strcpy(find_file.d_name,FileData.cFileName);
+	strcpy(find_file.d_name,buf);
 	dir->hSearch = hSearch;
 	return &find_file;
 }
