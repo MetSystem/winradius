@@ -92,7 +92,7 @@ int check_config = FALSE;
 
 #define RADIUSD_VERSION "2.1.12"
 #define HOSTINFO "COMBA"
-const char *radiusd_version = "WinRADIUS 0.0.1 Base ON FreeRADIUS Version " RADIUSD_VERSION ", for host " HOSTINFO ", built on " __DATE__ " at " __TIME__;
+const char *radiusd_version = "WinRADIUS 0.0.1 Base ON FreeRADIUS Version " RADIUSD_VERSION ", built on " __DATE__ " at " __TIME__;
 pid_t radius_pid;
 
 static int debug_memory = 0;
