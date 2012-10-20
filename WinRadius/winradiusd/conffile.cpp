@@ -32,6 +32,8 @@
 #define HAVE_SYS_STAT_H
 #include <stdarg.h>
 #define vsnprintf _vsnprintf
+#define HAVE_DIRENT_H
+#define S_ISDIR(x) (_S_IFDIR == x) 
 #endif
 
 #include <freeradius-devel/ident.h>
@@ -41,7 +43,7 @@ RCSID("$Id$")
 #include <freeradius-devel/rad_assert.h>
 
 #ifdef HAVE_DIRENT_H
-#include <dirent.h>
+#include <freeradius-devel/dirent.h>
 #endif
 
 #ifdef HAVE_SYS_STAT_H
