@@ -341,9 +341,9 @@ static size_t xlat_config(void *instance, REQUEST *request,
 			  size_t outlen,
 			  RADIUS_ESCAPE_STRING func)
 {
-#ifdef _WIN32
-	return 0;
-#else
+//#ifdef _WIN32
+//	return 0;
+//#else
 	const char *value;
 	CONF_PAIR *cp;
 	CONF_ITEM *ci;
@@ -382,7 +382,7 @@ static size_t xlat_config(void *instance, REQUEST *request,
 
 	return func(out, outlen, value);
 
-#endif;
+//#endif;
 }
 
 
@@ -436,11 +436,8 @@ static int r_mkdir(const char *part)
 	if (r_mkdir(parentdir) != 0)
 		return(1);
 
-#ifdef _WIN32
-	if (mkdir(part) != 0) {
-#else
-	if (mkdir(part, 0770) != 0) {
-#endif
+	if (mkdir(part,0770) != 0) {
+
 	
 		radlog(L_ERR, "mkdir(%s) error: %s\n", part, strerror(errno));
 		return(1);
