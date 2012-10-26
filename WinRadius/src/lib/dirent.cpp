@@ -25,7 +25,7 @@ static BOOL is_first_find ;
 
 
 
-static char* rad_str_replace(char *v)
+char* rad_str_replace(char *v)
 {
 	
 	char *str = v;
@@ -62,24 +62,28 @@ DIR *opendir(const char *dir_name)
 
 struct dirent * readdir(DIR *dir)
 {
-	wchar_t tmp[_MAX_PATH];
-	char buf[_MAX_PATH];
+	wchar_t tmp[MAX_PATH];
+	char buf[MAX_PATH];
 	//printf("list file:%s\r\n",buf);
 	if (!is_first_find){
 		
-		memset(buf,0,_MAX_PATH);
-		sprintf(buf,"%s\\%s",dir->dir_name,"*.*");
+		memset(buf,0,MAX_PATH);
+		memset(tmp,0,MAX_PATH);
+		sprintf(buf,"%s\\%s",dir->dir_name,"*");
 
+		int len = strlen(buf);
+		mbstowcs(tmp,buf,len);
 		
-		mbstowcs(tmp,buf,strlen(buf));
-
+		
 		hSearch = FindFirstFile(tmp, &FileData); 
 		if (hSearch == INVALID_HANDLE_VALUE) 
 		{ 
 			return NULL;
 		} 
 		is_first_find = TRUE;
+		memset(buf,0,MAX_PATH);
 		wcstombs(buf,FileData.cFileName,wcslen(FileData.cFileName));
+		memset(find_file.d_name,0,MAX_PATH);
 		strcpy(find_file.d_name,buf);
 		dir->hSearch = hSearch;
 		return &find_file;
@@ -90,6 +94,10 @@ struct dirent * readdir(DIR *dir)
 
 		return NULL;
 	}
+	memset(buf,0,MAX_PATH);
+	memset(find_file.d_name,0,MAX_PATH);
+	wcstombs(buf,FileData.cFileName,wcslen(FileData.cFileName));
+		
 	strcpy(find_file.d_name,buf);
 	dir->hSearch = hSearch;
 	return &find_file;
