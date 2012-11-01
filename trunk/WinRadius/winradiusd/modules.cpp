@@ -28,7 +28,7 @@
 
 //#define HAVE_LT_DLADVISE_INIT
 //#define WITHOUT_LIBLTDL
-
+#include <windows.h>
 #endif
 
 #include <freeradius-devel/ident.h>
@@ -147,6 +147,42 @@ const char *lt_dlerror(void)
 
 
 #else  /* without dlopen */
+
+#ifdef _WIN32
+
+lt_dlhandle lt_dlopenext(const char *name)
+{
+	wchar_t wcsname[MAX_PATH];
+	mbstowcs(wcsname,name,strlen(name));
+	wcsname[strlen(name)]='\0';
+	HMODULE  hModule = LoadLibrary(wcsname);
+	if (hModule == NULL) {
+		return NULL;
+	}
+
+	return hModule;
+}
+
+void *lt_dlsym(lt_dlhandle handle, UNUSED const char *symbol)
+{
+	//wchar_t wcsname[MAX_PATH];
+	//mbstowcs(wcsname,symbol,strlen(symbol));
+	//wcsname[strlen(symbol)]='\0';
+	return GetProcAddress((HMODULE)handle, symbol/*wcsname*/); 
+}
+
+int lt_dlclose(lt_dlhandle handle)
+{
+	return 0;
+}
+
+const char *lt_dlerror(void)
+{
+	return "";
+}
+
+
+#else
 typedef struct lt_dlmodule_t {
   const char	*name;
   void		*ref;
@@ -213,8 +249,9 @@ const char *lt_dlerror(void)
 	return "Unspecified error";
 }
 
-#define fr_dlopenext lt_dlopenext
 
+#endif
+#define fr_dlopenext lt_dlopenext
 #endif	/* WITH_DLOPEN */
 #else	/* WITHOUT_LIBLTDL */
 
