@@ -42,9 +42,10 @@ RLM_EXEC_API int fnrlm_exec(void)
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
 
+
 #include <freeradius-devel/radiusd.h>
 #include <freeradius-devel/modules.h>
-
+extern void cf_section_walk(const CONF_SECTION *cp);
 /*
  *	Define a structure for our module configuration.
  */
@@ -197,8 +198,12 @@ static int exec_detach(void *instance)
  *	that must be referenced in later calls, store a handle to it
  *	in *instance otherwise put a null pointer there.
  */
+
 static int exec_instantiate(CONF_SECTION *conf, void **instance)
 {
+	printf("exec_instantiate\r\n");
+	cf_section_walk(conf);
+	printf("exec_instantiate END\r\n");
 	rlm_exec_t	*inst;
 	const char	*xlat_name;
 
@@ -215,6 +220,8 @@ static int exec_instantiate(CONF_SECTION *conf, void **instance)
 	 *	If the configuration parameters can't be parsed, then
 	 *	fail.
 	 */
+	
+	
 	if (cf_section_parse(conf, inst, module_config) < 0) {
 		radlog(L_ERR, "rlm_exec: Failed parsing the configuration");
 		exec_detach(inst);
@@ -476,7 +483,7 @@ static int exec_accounting(void *instance, REQUEST *request)
  *	The server will then take care of ensuring that the module
  *	is single-threaded.
  */
-RLM_EXEC_API  module_t rlm_exec = {
+extern "C"  RLM_EXEC_API  module_t rlm_exec = {
 	RLM_MODULE_INIT,
 	"exec",				/* Name */
 	RLM_TYPE_CHECK_CONFIG_SAFE,   	/* type */
