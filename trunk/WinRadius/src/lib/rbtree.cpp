@@ -52,6 +52,7 @@ struct rbtree_t {
 	int (*Compare)(const void *, const void *);
 	int replace_flag;
 	void (*freeNode)(void *);
+	rbnode_t *Sentinel;
 };
 #define RBTREE_MAGIC (0x5ad09c42)
 
@@ -106,7 +107,7 @@ rbtree_t *rbtree_create(int (*Compare)(const void *, const void *),
 	tree->Compare = Compare;
 	tree->replace_flag = replace_flag;
 	tree->freeNode = freeNode;
-
+	tree->Sentinel = NIL;
 	return tree;
 }
 
@@ -121,10 +122,10 @@ static void RotateLeft(rbtree_t *tree, rbnode_t *X)
 
 	/* establish X->Right link */
 	X->Right = Y->Left;
-	if (Y->Left != NIL) Y->Left->Parent = X;
+	if (Y->Left != tree->Sentinel) Y->Left->Parent = X;
 
 	/* establish Y->Parent link */
-	if (Y != NIL) Y->Parent = X->Parent;
+	if (Y != tree->Sentinel) Y->Parent = X->Parent;
 	if (X->Parent) {
 		if (X == X->Parent->Left)
 			X->Parent->Left = Y;
@@ -136,7 +137,7 @@ static void RotateLeft(rbtree_t *tree, rbnode_t *X)
 
 	/* link X and Y */
 	Y->Left = X;
-	if (X != NIL) X->Parent = Y;
+	if (X != tree->Sentinel) X->Parent = Y;
 }
 
 static void RotateRight(rbtree_t *tree, rbnode_t *X)
@@ -149,10 +150,10 @@ static void RotateRight(rbtree_t *tree, rbnode_t *X)
 
 	/* establish X->Left link */
 	X->Left = Y->Right;
-	if (Y->Right != NIL) Y->Right->Parent = X;
+	if (Y->Right != tree->Sentinel) Y->Right->Parent = X;
 
 	/* establish Y->Parent link */
-	if (Y != NIL) Y->Parent = X->Parent;
+	if (Y != tree->Sentinel) Y->Parent = X->Parent;
 	if (X->Parent) {
 		if (X == X->Parent->Right)
 			X->Parent->Right = Y;
@@ -164,7 +165,7 @@ static void RotateRight(rbtree_t *tree, rbnode_t *X)
 
 	/* link X and Y */
 	Y->Right = X;
-	if (X != NIL) X->Parent = Y;
+	if (X != tree->Sentinel) X->Parent = Y;
 }
 
 static void InsertFixup(rbtree_t *tree, rbnode_t *X)
@@ -243,7 +244,7 @@ rbnode_t *rbtree_insertnode(rbtree_t *tree, void *Data)
 	/* find where node belongs */
 	Current = tree->Root;
 	Parent = NULL;
-	while (Current != NIL) {
+	while (Current != tree->Sentinel) {
 		int result;
 
 		/*
@@ -277,8 +278,8 @@ rbnode_t *rbtree_insertnode(rbtree_t *tree, void *Data)
 
 	X->Data = Data;
 	X->Parent = Parent;
-	X->Left = NIL;
-	X->Right = NIL;
+	X->Left = tree->Sentinel;
+	X->Right = tree->Sentinel;
 	X->Color = Red;
 
 	/* insert node in tree */
@@ -316,23 +317,23 @@ static void DeleteFixup(rbtree_t *tree, rbnode_t *X, rbnode_t *Parent)
 			rbnode_t *W = Parent->Right;
 			if (W->Color == Red) {
 				W->Color = Black;
-				Parent->Color = Red; /* Parent != NIL? */
+				Parent->Color = Red; /* Parent != tree->Sentinel? */
 				RotateLeft(tree, Parent);
 				W = Parent->Right;
 			}
 			if (W->Left->Color == Black && W->Right->Color == Black) {
-				if (W != NIL) W->Color = Red;
+				if (W != tree->Sentinel) W->Color = Red;
 				X = Parent;
 				Parent = X->Parent;
 			} else {
 				if (W->Right->Color == Black) {
-					if (W->Left != NIL) W->Left->Color = Black;
+					if (W->Left != tree->Sentinel) W->Left->Color = Black;
 					W->Color = Red;
 					RotateRight(tree, W);
 					W = Parent->Right;
 				}
 				W->Color = Parent->Color;
-				if (Parent != NIL) Parent->Color = Black;
+				if (Parent != tree->Sentinel) Parent->Color = Black;
 				if (W->Right->Color != Black) {
 					W->Right->Color = Black;
 				}
@@ -343,23 +344,23 @@ static void DeleteFixup(rbtree_t *tree, rbnode_t *X, rbnode_t *Parent)
 			rbnode_t *W = Parent->Left;
 			if (W->Color == Red) {
 				W->Color = Black;
-				Parent->Color = Red; /* Parent != NIL? */
+				Parent->Color = Red; /* Parent != tree->Sentinel? */
 				RotateRight(tree, Parent);
 				W = Parent->Left;
 			}
 			if (W->Right->Color == Black && W->Left->Color == Black) {
-				if (W != NIL) W->Color = Red;
+				if (W != tree->Sentinel) W->Color = Red;
 				X = Parent;
 				Parent = X->Parent;
 			} else {
 				if (W->Left->Color == Black) {
-					if (W->Right != NIL) W->Right->Color = Black;
+					if (W->Right != tree->Sentinel) W->Right->Color = Black;
 					W->Color = Red;
 					RotateLeft(tree, W);
 					W = Parent->Left;
 				}
 				W->Color = Parent->Color;
-				if (Parent != NIL) Parent->Color = Black;
+				if (Parent != tree->Sentinel) Parent->Color = Black;
 				if (W->Left->Color != Black) {
 					W->Left->Color = Black;
 				}
@@ -383,26 +384,26 @@ void rbtree_delete(rbtree_t *tree, rbnode_t *Z)
 	 *  delete node Z from tree  *
 	 *****************************/
 
-	if (!Z || Z == NIL) return;
+	if (!Z || Z == tree->Sentinel) return;
 
-	if (Z->Left == NIL || Z->Right == NIL) {
-		/* Y has a NIL node as a child */
+	if (Z->Left == tree->Sentinel || Z->Right == tree->Sentinel) {
+		/* Y has a tree->Sentinel node as a child */
 		Y = Z;
 	} else {
-		/* find tree successor with a NIL node as a child */
+		/* find tree successor with a tree->Sentinel node as a child */
 		Y = Z->Right;
-		while (Y->Left != NIL) Y = Y->Left;
+		while (Y->Left != tree->Sentinel) Y = Y->Left;
 	}
 
 	/* X is Y's only child */
-	if (Y->Left != NIL)
+	if (Y->Left != tree->Sentinel)
 		X = Y->Left;
 	else
-		X = Y->Right;	/* may be NIL! */
+		X = Y->Right;	/* may be tree->Sentinel! */
 
 	/* remove Y from the parent chain */
 	Parent = Y->Parent;
-	if (X != NIL) X->Parent = Parent;
+	if (X != tree->Sentinel) X->Parent = Parent;
 
 	if (Parent)
 		if (Y == Parent->Left)
@@ -417,7 +418,7 @@ void rbtree_delete(rbtree_t *tree, rbnode_t *Z)
 		Z->Data = Y->Data;
 		Y->Data = NULL;
 
-		if (Y->Color == Black && X != NIL)
+		if (Y->Color == Black && X != tree->Sentinel)
 			DeleteFixup(tree, X, Parent);
 
 		/*
@@ -443,7 +444,7 @@ void rbtree_delete(rbtree_t *tree, rbnode_t *Z)
 	} else {
 		if (tree->freeNode) tree->freeNode(Y->Data);
 
-		if (Y->Color == Black && X != NIL)
+		if (Y->Color == Black && X != tree->Sentinel)
 			DeleteFixup(tree, X, Parent);
 
 		free(Y);
@@ -479,7 +480,7 @@ rbnode_t *rbtree_find(rbtree_t *tree, const void *Data)
 
 	rbnode_t *Current = tree->Root;
 
-	while (Current != NIL) {
+	while (Current != tree->Sentinel) {
 		int result = tree->Compare(Data, Current->Data);
 
 		if (result == 0) {
@@ -511,25 +512,29 @@ void *rbtree_finddata(rbtree_t *tree, const void *Data)
  *	We call ourselves recursively for each function, but that's OK,
  *	as the stack is only log(N) deep, which is ~12 entries deep.
  */
-static int WalkNodePreOrder(rbnode_t *X,
+static int WalkNodePreOrder(rbtree_t *tree,rbnode_t *X,
 			    int (*callback)(void *, void *), void *context)
 {
 	int rcode;
+	
 	rbnode_t *Left, *Right;
-
+	
+	
 	Left = X->Left;
 	Right = X->Right;
 
 	rcode = callback(context, X->Data);
 	if (rcode != 0) return rcode;
 
-	if (Left != NIL) {
-		rcode = WalkNodePreOrder(Left, callback, context);
+	//if (X->Left != tree->Sentinel) {
+	if (X->Left->Data != NULL){
+		rcode = WalkNodePreOrder(tree,Left, callback, context);
 		if (rcode != 0) return rcode;
 	}
 
-	if (Right != NIL) {
-		rcode = WalkNodePreOrder(Right, callback, context);
+	//if (X->Right != tree->Sentinel) {
+	if (X->Right->Data != NULL){
+		rcode = WalkNodePreOrder(tree,Right, callback, context);
 		if (rcode != 0) return rcode;
 	}
 
@@ -539,14 +544,16 @@ static int WalkNodePreOrder(rbnode_t *X,
 /*
  *	Inorder
  */
-static int WalkNodeInOrder(rbnode_t *X,
+static int WalkNodeInOrder(rbtree_t *tree ,rbnode_t *X,
 			   int (*callback)(void *, void *), void *context)
 {
 	int rcode;
-	rbnode_t *Right;
+	rbnode_t  *Right;
+	
 
-	if (X->Left != NIL) {
-		rcode = WalkNodeInOrder(X->Left, callback, context);
+
+	if (X->Left != tree->Sentinel) {
+		rcode = WalkNodeInOrder(tree,X->Left, callback, context);
 		if (rcode != 0) return rcode;
 	}
 
@@ -555,8 +562,8 @@ static int WalkNodeInOrder(rbnode_t *X,
 	rcode = callback(context, X->Data);
 	if (rcode != 0) return rcode;
 
-	if (Right != NIL) {
-		rcode = WalkNodeInOrder(Right, callback, context);
+	if (Right != tree->Sentinel) {
+		rcode = WalkNodeInOrder(tree,Right, callback, context);
 		if (rcode != 0) return rcode;
 	}
 
@@ -567,18 +574,20 @@ static int WalkNodeInOrder(rbnode_t *X,
 /*
  *	PostOrder
  */
-static int WalkNodePostOrder(rbnode_t *X,
+static int WalkNodePostOrder(rbtree_t *tree ,rbnode_t *X,
 			     int (*callback)(void *, void*), void *context)
 {
 	int rcode;
 
-	if (X->Left != NIL) {
-		rcode = WalkNodeInOrder(X->Left, callback, context);
+	if (X->Left != tree->Sentinel) {
+	//if (X->Left->Data != NULL){
+		rcode = WalkNodeInOrder(tree,X->Left, callback, context);
 		if (rcode != 0) return rcode;
 	}
 
-	if (X->Right != NIL) {
-		rcode = WalkNodeInOrder(X->Right, callback, context);
+	if (X->Right != tree->Sentinel) {
+	//if (X->Right->Data != NULL){
+		rcode = WalkNodeInOrder(tree,X->Right, callback, context);
 		if (rcode != 0) return rcode;
 	}
 
@@ -598,15 +607,15 @@ static int WalkNodePostOrder(rbnode_t *X,
 int rbtree_walk(rbtree_t *tree, RBTREE_ORDER order,
 		int (*callback)(void *, void *), void *context)
 {
-	if (tree->Root == NIL) return 0;
+	if (tree->Root == tree->Sentinel) return 0;
 
 	switch (order) {
 	case PreOrder:
-		return WalkNodePreOrder(tree->Root, callback, context);
+		return WalkNodePreOrder(tree,tree->Root, callback, context);
 	case InOrder:
-		return WalkNodeInOrder(tree->Root, callback, context);
+		return WalkNodeInOrder(tree,tree->Root, callback, context);
 	case PostOrder:
-		return WalkNodePostOrder(tree->Root, callback, context);
+		return WalkNodePostOrder(tree,tree->Root, callback, context);
 
 	default:
 		break;
@@ -645,7 +654,7 @@ void *rbtree_min(rbtree_t *tree)
 	if (!tree || !tree->Root) return NULL;
 
 	Current = tree->Root;
-	while (Current->Left != NIL) Current = Current->Left;
+	while (Current->Left != tree->Sentinel) Current = Current->Left;
 
 	return Current->Data;
 }
