@@ -173,6 +173,7 @@ void *lt_dlsym(lt_dlhandle handle, UNUSED const char *symbol)
 
 int lt_dlclose(lt_dlhandle handle)
 {
+	FreeLibrary((HMODULE)handle);
 	return 0;
 }
 
@@ -574,7 +575,7 @@ static module_entry_t *linkto_module(const char *module_name,
 
 	return node;
 }
-
+extern int cs_walk_callback(void * context,void *data);
 /*
  *	Find a module instance.
  */
@@ -655,6 +656,10 @@ module_instance_t *find_module_instance(CONF_SECTION *modules,
 	/*
 	 *	Call the module's instantiation routine.
 	 */
+	
+	printf("(node->entry->module->instantiate)(cs, &node->insthandle) < 0\r\n");
+	cf_section_walk(cs);
+
 	if ((node->entry->module->instantiate) &&
 	    (!check_config || check_config_safe) &&
 	    ((node->entry->module->instantiate)(cs, &node->insthandle) < 0)) {

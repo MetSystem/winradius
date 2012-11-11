@@ -103,8 +103,22 @@ struct conf_data {
 	void	   *data;	/* user data */
 	void       (*free)(void *); /* free user data function */
 };
+int cf_walk_callback(void * context,void *data)
+{
+	if (data==NULL)
+	{
+		exit(1);
+	}
+	CONF_PAIR *mycp = (CONF_PAIR *) data;
 
+	printf("attr:%s\r\n",mycp->attr);
+	return 0;
+}
 
+void cf_section_walk(const CONF_SECTION *cp)
+{
+	rbtree_walk(cp->pair_tree,PreOrder,cf_walk_callback,NULL);
+}
 static int cf_data_add_internal(CONF_SECTION *cs, const char *name,
 	void *data, void (*data_free)(void *),
 	int flag);
@@ -1056,6 +1070,9 @@ static const char *parse_spaces = "                                             
 int cf_section_parse(CONF_SECTION *cs, void *base,
 	const CONF_PARSER *variables)
 {
+	printf("----cf_section_parse----\r\n");
+	cf_section_walk(cs);
+	printf("----cf_section_parse END----\r\n");
 	int i;
 	void *data;
 
@@ -1851,6 +1868,7 @@ CONF_SECTION *cf_file_read(const char *filename)
 	return cs;
 }
 
+
 /*
 * Return a CONF_PAIR within a CONF_SECTION.
 */
@@ -1868,7 +1886,13 @@ CONF_PAIR *cf_pair_find(const CONF_SECTION *cs, const char *name)
 		CONF_PAIR mycp;
 
 		mycp.attr = name;
+		if (strcmp(name,"wait")==0 || strcmp(name,"program")==0)
+		{
+			printf("----walk %s----\r\n",name);
+			cf_section_walk(cs);
+		}
 		cp = (struct conf_pair *)rbtree_finddata(cs->pair_tree, &mycp);
+		//printf("----find %s----\r\n",name);
 	} else {
 		/*
 		*	Else find the first one that matches
@@ -2145,8 +2169,12 @@ CONF_SECTION *cf_section_sub_find_name2(const CONF_SECTION *cs,
 			(strcmp(subcs->name2, name2) == 0))
 			break;
 	}
-
-	return cf_itemtosection(ci);
+	CONF_SECTION *ret = cf_itemtosection(ci);
+	if (strcmp(name2,"exec")==0){
+		printf("cf_section_sub_find_name2::exec\r\n");
+		cf_section_walk(ret);
+	}
+	return ret;
 }
 
 /*
