@@ -1189,6 +1189,7 @@ void radius_pairmove(REQUEST *request, VALUE_PAIR **to, VALUE_PAIR *from)
  *     Copied shamelessly from conffile.c, to simplify the API for
  *     now...
  */
+
 typedef enum conf_type {
 	CONF_ITEM_INVALID = 0,
 	CONF_ITEM_PAIR,
