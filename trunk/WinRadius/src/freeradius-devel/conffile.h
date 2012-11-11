@@ -18,6 +18,8 @@ RCSIDH(conffile_h, "$Id$")
 extern "C" {
 #endif
 
+
+
 /*
  * Export the minimum amount of information about these structs
  */
@@ -25,6 +27,7 @@ typedef struct conf_item CONF_ITEM;
 typedef struct conf_pair CONF_PAIR;
 typedef struct conf_part CONF_SECTION;
 typedef struct conf_data CONF_DATA;
+
 
 /*
  *  Instead of putting the information into a configuration structure,
@@ -47,6 +50,8 @@ typedef struct CONF_PARSER {
 /* This preprocessor trick will be useful in initializing CONF_PARSER struct */
 #define XStringify(x) #x
 #define Stringify(x) XStringify(x)
+
+void cf_section_walk(const CONF_SECTION *cp);
 
 void		cf_pair_free(CONF_PAIR **cp);
 int		cf_pair_replace(CONF_SECTION *cs, CONF_PAIR *cp,
