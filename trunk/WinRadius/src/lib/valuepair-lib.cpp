@@ -1070,7 +1070,7 @@ VALUE_PAIR *pairparsevalue(VALUE_PAIR *vp, const char *value)
 
 		case PW_TYPE_ABINARY:
 #ifdef ASCEND_BINARY
-			if (strncasecmp(value, "0x", 2) == 0) {
+			if (strncasecmp((char*)value, "0x", 2) == 0) {
 				vp->type = PW_TYPE_OCTETS;
 				goto do_octets;
 			}

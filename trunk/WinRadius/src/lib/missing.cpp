@@ -207,7 +207,7 @@ struct tm *gmtime_r(const time_t *l_clock, struct tm *result)
 #endif
 
 #ifndef HAVE_GETTIMEOFDAY
-#ifdef WIN32
+#ifdef _WIN32
 /*
  * Number of micro-seconds between the beginning of the Windows epoch
  * (Jan. 1, 1601) and the Unix epoch (Jan. 1, 1970).
