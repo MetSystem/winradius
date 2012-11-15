@@ -392,7 +392,10 @@ typedef struct main_config_t {
 #endif
 } MAIN_CONFIG_T;
 
+#ifndef DEBUG
 #define DEBUG	if(debug_flag)log_debug
+#endif
+
 #define DEBUG2  if (debug_flag > 1)log_debug
 #define DEBUG3  if (debug_flag > 2)log_debug
 #define DEBUG4  if (debug_flag > 3)log_debug

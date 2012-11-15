@@ -2,7 +2,7 @@
 /* src/include/autoconf.h.in.  Generated from configure.in by autoheader.  */
 
 /* Include support for Ascend binary filter attributes */
-#define ASCEND_BINARY 
+//#define ASCEND_BINARY 
 
 /* BSD-Style get*byaddr_r */
 #define BSDSTYLE 3
@@ -26,10 +26,10 @@
 /* #undef HAVE_CLOSEFROM */
 
 /* Do we have the crypt function */
-#define HAVE_CRYPT 
+//#define HAVE_CRYPT 
 
 /* Define to 1 if you have the <crypt.h> header file. */
-#define HAVE_CRYPT_H 1
+//#define HAVE_CRYPT_H 1
 
 /* Define to 1 if you have the `ctime_r' function. */
 #define HAVE_CTIME_R 1
@@ -73,19 +73,19 @@
 #define HAVE_GETRESUID 1
 
 /* Define to 1 if you have the `gettimeofday' function. */
-#define HAVE_GETTIMEOFDAY 1
+//#define HAVE_GETTIMEOFDAY 1
 
 /* Define to 1 if you have the `getusershell' function. */
 #define HAVE_GETUSERSHELL 1
 
 /* Define to 1 if you have the <glob.h> header file. */
-#define HAVE_GLOB_H 1
+//#define HAVE_GLOB_H 1
 
 /* Define to 1 if you have the `gmtime_r' function. */
 #define HAVE_GMTIME_R 1
 
 /* Define to 1 if you have the <grp.h> header file. */
-#define HAVE_GRP_H 1
+//#define HAVE_GRP_H 1
 
 /* Define to 1 if you have the <history.h> header file. */
 /* #undef HAVE_HISTORY_H */
@@ -97,7 +97,7 @@
 #define HAVE_INET_ATON 1
 
 /* Define to 1 if you have the `inet_ntop' function. */
-#define HAVE_INET_NTOP 1
+//#define HAVE_INET_NTOP 1
 
 /* Define to 1 if you have the `inet_pton' function. */
 #define HAVE_INET_PTON 1
@@ -106,7 +106,7 @@
 #define HAVE_INITGROUPS 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H 1
+//#define HAVE_INTTYPES_H 1
 
 /* define if you have IP_PKTINFO (Linux) */
 #define HAVE_IP_PKTINFO 
@@ -136,7 +136,7 @@
 /* #undef HAVE_LIBWS2_32 */
 
 /* Define to 1 if you have the `localtime_r' function. */
-#define HAVE_LOCALTIME_R 1
+//#define HAVE_LOCALTIME_R 1
 
 /* Define to 1 if you have the `lockf' function. */
 #define HAVE_LOCKF 1
@@ -160,7 +160,7 @@
 #define HAVE_NETINET_IN_H 1
 
 /* Define to 1 if you have the <net/if.h> header file. */
-#define HAVE_NET_IF_H 1
+//#define HAVE_NET_IF_H 1
 
 /* Define to 1 if you have the <openssl/crypto.h> header file. */
 #define HAVE_OPENSSL_CRYPTO_H 1
@@ -193,13 +193,13 @@
 /* #undef HAVE_PROT_H */
 
 /* Define to 1 if you have the <pthread.h> header file. */
-#define HAVE_PTHREAD_H 1
+//#define HAVE_PTHREAD_H 1
 
 /* Define to 1 if you have the `pthread_sigmask' function. */
 #define HAVE_PTHREAD_SIGMASK 1
 
 /* Define to 1 if you have the <pwd.h> header file. */
-#define HAVE_PWD_H 1
+//#define HAVE_PWD_H 1
 
 /* Define to 1 if you have the <readline.h> header file. */
 /* #undef HAVE_READLINE_H */
@@ -214,7 +214,7 @@
 #define HAVE_READLINE_READLINE_H 1
 
 /* define this if we have the <regex.h> header file */
-#define HAVE_REGEX_H 
+//#define HAVE_REGEX_H 
 
 /* define this if we have REG_EXTENDED (from <regex.h>) */
 #define HAVE_REG_EXTENDED 
@@ -226,7 +226,7 @@
 #define HAVE_SEMAPHORE_H 1
 
 /* Define to 1 if you have the `setlinebuf' function. */
-#define HAVE_SETLINEBUF 1
+//#define HAVE_SETLINEBUF 1
 
 /* Define to 1 if you have the `setresuid' function. */
 #define HAVE_SETRESUID 1
@@ -235,7 +235,7 @@
 #define HAVE_SETSID 1
 
 /* Define to 1 if you have the `setuid' function. */
-#define HAVE_SETUID 1
+//#define HAVE_SETUID 1
 
 /* Define to 1 if you have the `setvbuf' function. */
 #define HAVE_SETVBUF 1
@@ -247,7 +247,7 @@
 /* #undef HAVE_SIA_H */
 
 /* Define to 1 if you have the `sigaction' function. */
-#define HAVE_SIGACTION 1
+//#define HAVE_SIGACTION 1
 
 /* Define to 1 if you have the <signal.h> header file. */
 #define HAVE_SIGNAL_H 1
@@ -271,7 +271,7 @@
 #define HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the `strcasecmp' function. */
-#define HAVE_STRCASECMP 1
+//#define HAVE_STRCASECMP 1
 
 /* Define to 1 if you have the <strings.h> header file. */
 #define HAVE_STRINGS_H 1
@@ -286,7 +286,7 @@
 /* #undef HAVE_STRLCPY */
 
 /* Define to 1 if you have the `strncasecmp' function. */
-#define HAVE_STRNCASECMP 1
+//#define HAVE_STRNCASECMP 1
 
 /* Define to 1 if you have the `strsep' function. */
 #define HAVE_STRSEP 1
@@ -307,7 +307,7 @@
 #define HAVE_STRUCT_SOCKADDR_STORAGE 1
 
 /* Define to 1 if you have the <syslog.h> header file. */
-#define HAVE_SYSLOG_H 1
+//#define HAVE_SYSLOG_H 1
 
 /* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
    */
@@ -321,10 +321,10 @@
 /* #undef HAVE_SYS_NDIR_H */
 
 /* Define to 1 if you have the <sys/prctl.h> header file. */
-#define HAVE_SYS_PRCTL_H 1
+//#define HAVE_SYS_PRCTL_H 1
 
 /* Define to 1 if you have the <sys/resource.h> header file. */
-#define HAVE_SYS_RESOURCE_H 1
+//#define HAVE_SYS_RESOURCE_H 1
 
 /* Define to 1 if you have the <sys/security.h> header file. */
 /* #undef HAVE_SYS_SECURITY_H */
@@ -345,10 +345,10 @@
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the <sys/un.h> header file. */
-#define HAVE_SYS_UN_H 1
+//#define HAVE_SYS_UN_H 1
 
 /* Define to 1 if you have the <sys/wait.h> header file. */
-#define HAVE_SYS_WAIT_H 1
+//#define HAVE_SYS_WAIT_H 1
 
 /* Define if the compiler supports __thread */
 /* #undef HAVE_THREAD_TLS */
@@ -417,7 +417,7 @@
 /* #undef WITH_UDPFROMTO */
 
 /* define if you want VMPS support */
-#define WITH_VMPS 1
+//#define WITH_VMPS 1
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

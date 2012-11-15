@@ -49,7 +49,7 @@
 //#undef HAVE_INET_NTOP
 
 #define inet_ntop inet_ntop_ex
-
+//#define inet_ntop InetNtop
 #define snprintf _snprintf
 #define strdup _strdup
 
@@ -284,6 +284,9 @@ DICT_VENDOR	*dict_vendorbyvalue(int vendor);
 /*#define dict_valget	dict_valbyattr almost but not quite*/
 #endif
 
+#ifdef _WIN32
+#define CTIME_R(a,b,c) ctime_s(b,c,a)
+#else
 /* get around diffrent ctime_r styles */
 #ifdef CTIMERSTYLE
 #if CTIMERSTYLE == SOLARISSTYLE
@@ -294,7 +297,7 @@ DICT_VENDOR	*dict_vendorbyvalue(int vendor);
 #else
 #define CTIME_R(a,b,c) ctime_r(a,b)
 #endif
-
+#endif
 /* md5.c */
 
 void		fr_md5_calc(uint8_t *, const uint8_t *, unsigned int);
