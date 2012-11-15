@@ -12,10 +12,11 @@
 #ifdef _WIN32
 
 #include <freeradius-devel/rad_types.h>
+#include <freeradius-devel/autoconf.h>
 #include <winsock2.h>
 
-#define HAVE_STRUCT_IN6_ADDR
-#define HAVE_GETNAMEINFO
+//#define HAVE_STRUCT_IN6_ADDR
+//#define HAVE_GETNAMEINFO
 
 #endif //_WIN32
 
