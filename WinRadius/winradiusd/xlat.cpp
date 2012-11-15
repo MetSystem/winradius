@@ -499,7 +499,7 @@ static size_t xlat_regex(void *instance, REQUEST *request,
 	fmt = fmt;		/* -Wunused */
 	func = func;		/* -Wunused FIXME: do escaping? */
 
-	regex = request_data_reference(request, request,
+	regex = (char*)request_data_reference(request, request,
 				 REQUEST_DATA_REGEX | *(int *)instance);
 	if (!regex) return 0;
 
@@ -734,7 +734,7 @@ int xlat_register(const char *module, RAD_XLAT_FUNC func, void *instance)
 		buffer[1] = '\0';
 		for (i = 0; i <= REQUEST_MAX_REGEX; i++) {
 			buffer[0] = '0' + i;
-			xlat_register(buffer, xlat_regex, &xlat_inst[i]);
+			xlat_register(buffer, xlat_regex,(void*) &xlat_inst[i]);
 			c = xlat_find(buffer);
 			rad_assert(c != NULL);
 			c->internal = TRUE;

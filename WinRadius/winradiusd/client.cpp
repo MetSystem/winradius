@@ -30,6 +30,9 @@ RCSID("$Id$")
 #include <freeradius-devel/radiusd.h>
 #include <freeradius-devel/rad_assert.h>
 
+#ifdef _WIN32
+	#define	S_ISDIR(m)	(((m) & S_IFMT) == S_IFDIR)
+#endif
 #include <sys/stat.h>
 
 #include <ctype.h>
@@ -37,7 +40,7 @@ RCSID("$Id$")
 
 #ifdef WITH_DYNAMIC_CLIENTS
 #ifdef HAVE_DIRENT_H
-#include <dirent.h>
+#include <freeradius-devel/dirent.h>
 #endif
 #endif
 

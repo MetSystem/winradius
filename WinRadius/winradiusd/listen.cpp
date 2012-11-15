@@ -2265,7 +2265,7 @@ int listen_init(CONF_SECTION *config, rad_listen_t **head)
 			}
 #ifdef WITH_VMPS
 			if (self->type == RAD_LISTEN_VQP) {
-				sock = self->data;
+				sock = (listen_socket_t *)self->data;
 				if (server_ipaddr.af == AF_UNSPEC) {
 					server_ipaddr = sock->ipaddr;
 				}

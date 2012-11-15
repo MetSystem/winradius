@@ -27,6 +27,8 @@
 #include <direct.h>
 #define WIN32_SERVER
 //extern int		radlog(int, const char *, ...);
+typedef int uid_t;
+typedef int gid_t;
 #endif
 
 #include <freeradius-devel/ident.h>
