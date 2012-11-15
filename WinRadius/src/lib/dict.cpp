@@ -28,7 +28,7 @@
 
 //#include "..\include\libradius.h"
 
-#define HAVE_SYS_STAT_H
+//#define HAVE_SYS_STAT_H
 #endif //_WIN32
 
 #include	<freeradius-devel/ident.h>
