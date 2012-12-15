@@ -26,6 +26,7 @@
 
 #ifdef _WIN32
 
+//#define USE_DLL
 //#define HAVE_LT_DLADVISE_INIT
 //#define WITHOUT_LIBLTDL
 #include <windows.h>
@@ -150,6 +151,7 @@ const char *lt_dlerror(void)
 
 #ifdef _WIN32
 
+#ifdef USE_DLL
 lt_dlhandle lt_dlopenext(const char *name)
 {
 	wchar_t wcsname[MAX_PATH];
@@ -157,6 +159,7 @@ lt_dlhandle lt_dlopenext(const char *name)
 	wcsname[strlen(name)]='\0';
 	HMODULE  hModule = LoadLibrary(wcsname);
 	if (hModule == NULL) {
+		printf("ERRORNO:%d\r\n",GetLastError());
 		return NULL;
 	}
 
@@ -182,12 +185,8 @@ const char *lt_dlerror(void)
 	return "";
 }
 
-
 #else
-typedef struct lt_dlmodule_t {
-  const char	*name;
-  void		*ref;
-} lt_dlmodule_t;
+//NOT USE DLL
 
 typedef struct eap_type_t EAP_TYPE;
 typedef struct rlm_sql_module_t rlm_sql_module_t;
@@ -196,24 +195,50 @@ typedef struct rlm_sql_module_t rlm_sql_module_t;
  *	FIXME: Write hackery to auto-generate self data.
  *	We only need to do self on systems that don't have dlopen.
  */
-
-//extern module_t rlm_pap;
-//extern module_t rlm_chap;
-//extern module_t rlm_eap;
+extern module_t rlm_exec;
+extern module_t rlm_pap;
+extern module_t rlm_chap;
+extern module_t rlm_mschap;
+extern module_t rlm_digest;
+extern module_t rlm_eap;
 //extern module_t rlm_sql;
 /* and so on ... */
 
-//extern EAP_TYPE rlm_eap_md5;
+extern EAP_TYPE rlm_eap_md5;
+extern EAP_TYPE rlm_eap_leap;
+extern EAP_TYPE rlm_eap_gtc;
+extern EAP_TYPE rlm_eap_tls;
+extern EAP_TYPE rlm_eap_ttls;
+extern EAP_TYPE rlm_eap_peap;
+extern EAP_TYPE rlm_eap_mschapv2;
+extern EAP_TYPE rlm_eap_sim;
+extern EAP_TYPE rlm_eap_tnc;
 //extern rlm_sql_module_t rlm_sql_mysql;
 /* and so on ... */
+typedef struct lt_dlmodule_t {
+  const char	*name;
+  void		*ref;
+} lt_dlmodule_t;
+
 
 static const lt_dlmodule_t lt_dlmodules[] = {
-//	{ "rlm_pap", &rlm_pap },
-//	{ "rlm_chap", &rlm_chap },
-//	{ "rlm_eap", &rlm_eap },
+	{ "rlm_exec", &rlm_exec },
+	{ "rlm_pap", &rlm_pap },
+	{ "rlm_chap", &rlm_chap },
+	{ "rlm_mschap", &rlm_mschap },
+	{ "rlm_digest",&rlm_digest},
+	{ "rlm_eap", &rlm_eap },
 
 
-//	{ "rlm_eap_md5", &rlm_eap_md5 },
+	{ "rlm_eap_md5", &rlm_eap_md5 },
+	{ "rlm_eap_leap", &rlm_eap_leap },
+	{ "rlm_eap_gtc", &rlm_eap_gtc },
+	{ "rlm_eap_tls", &rlm_eap_tls },
+	{ "rlm_eap_ttls", &rlm_eap_ttls },
+	{ "rlm_eap_peap", &rlm_eap_peap },
+	{ "rlm_eap_mschapv2", &rlm_eap_mschapv2 },
+	{ "rlm_eap_sim", &rlm_eap_sim },
+	{ "rlm_eap_tnc", &rlm_eap_tnc },
 
 		
 //	{ "rlm_sql_mysql", &rlm_sql_mysql },
@@ -250,8 +275,10 @@ const char *lt_dlerror(void)
 	return "Unspecified error";
 }
 
+#endif //NOT USE_DLL
 
-#endif
+#endif //_WIN32
+
 #define fr_dlopenext lt_dlopenext
 #endif	/* WITH_DLOPEN */
 #else	/* WITHOUT_LIBLTDL */
