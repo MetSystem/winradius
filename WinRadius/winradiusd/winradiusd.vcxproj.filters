@@ -13,6 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="源文件\module">
+      <UniqueIdentifier>{b55f31e6-8349-40b1-bb74-4f77b3a1d3c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_exec">
+      <UniqueIdentifier>{607524f6-c7b4-48bb-b308-1028a10a9f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_pap">
+      <UniqueIdentifier>{61bf7f8b-4074-43be-88fe-b3c0f40e3690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_chap">
+      <UniqueIdentifier>{fcef0fab-e4d9-4472-8a05-700145125cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_mschap">
+      <UniqueIdentifier>{a05cd8e4-014a-40d5-8dd0-8f403510e481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_digest">
+      <UniqueIdentifier>{09d95158-2721-41f0-b500-4d8aaf875e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_eap">
+      <UniqueIdentifier>{6c7001f8-b714-471f-b1ba-c844dbf8ae4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acct.cpp">
@@ -150,9 +171,6 @@
     <ClCompile Include="util.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\lib\valuepair.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="valuepair.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -165,13 +183,124 @@
     <ClCompile Include="xlat.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\lib\log-lib.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\lib\valuepair-lib.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\lib\dirent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lib\hmacsha1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="soh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_exec\rlm_exec.cpp">
+      <Filter>源文件\module\rlm_exec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_pap\rlm_pap.cpp">
+      <Filter>源文件\module\rlm_pap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_chap\rlm_chap.cpp">
+      <Filter>源文件\module\rlm_chap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_mschap\opendir.cpp">
+      <Filter>源文件\module\rlm_mschap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_mschap\rlm_mschap.cpp">
+      <Filter>源文件\module\rlm_mschap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_mschap\smbencrypt.cpp">
+      <Filter>源文件\module\rlm_mschap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_digest\rlm_digest.cpp">
+      <Filter>源文件\module\rlm_digest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\cb.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eap.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eap_leap.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eap_md5.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eap_tls.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eap_tnc.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eapcommon.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eapcrypto.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eapsimlib.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\fips186prf.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\mem.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\mppe_keys.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\peap.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_gtc.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_leap.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_md5.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_mschapv2.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_peap.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_sim.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_tls.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_tnc.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_ttls.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\tls.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\tncs_connect.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\ttls.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_mschap\mschap1.cpp">
+      <Filter>源文件\module\rlm_mschap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\smbdes1.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lib\log-lib.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,13 +308,13 @@
     <ClInclude Include="mschap.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="smbdes.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\freeradius-devel\radiusd.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

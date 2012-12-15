@@ -43,7 +43,9 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\svn\existing-winradius-code-0\winradius-code-0\WinRadius\src;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\openssl\openssl_winxp_vs2008_x86\openssl\include;F:\svn\existing-winradius-code-0\winradius-code-0\WinRadius\src;$(IncludePath)</IncludePath>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\openssl\openssl_winxp_vs2008_x86\openssl\bin;D:\openssl\openssl_winxp_vs2008_x86\openssl\lib\engines;$(ExecutablePath)</ExecutablePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\openssl\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -58,7 +60,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libeay32.lib;ssleay32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -85,8 +87,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\dirent.cpp" />
+    <ClCompile Include="..\src\lib\hmacsha1.cpp" />
     <ClCompile Include="..\src\lib\log-lib.cpp" />
     <ClCompile Include="..\src\lib\valuepair-lib.cpp" />
+    <ClCompile Include="..\src\modules\rlm_chap\rlm_chap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_digest\rlm_digest.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\cb.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eapcommon.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eapcrypto.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eapsimlib.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eap_leap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eap_md5.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eap_tls.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eap_tnc.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\fips186prf.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\mem.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\mppe_keys.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\peap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_gtc.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_leap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_md5.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_mschapv2.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_peap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_sim.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_tls.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_tnc.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_ttls.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\smbdes1.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\tls.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\tncs_connect.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\ttls.cpp" />
+    <ClCompile Include="..\src\modules\rlm_exec\rlm_exec.cpp" />
+    <ClCompile Include="..\src\modules\rlm_mschap\mschap1.cpp" />
+    <ClCompile Include="..\src\modules\rlm_mschap\opendir.cpp" />
+    <ClCompile Include="..\src\modules\rlm_mschap\rlm_mschap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_mschap\smbencrypt.cpp" />
+    <ClCompile Include="..\src\modules\rlm_pap\rlm_pap.cpp" />
     <ClCompile Include="acct.cpp" />
     <ClCompile Include="auth.cpp" />
     <ClCompile Include="client.cpp" />
@@ -126,6 +164,7 @@
     <ClCompile Include="..\src\lib\sha1.cpp" />
     <ClCompile Include="smbdes.cpp" />
     <ClCompile Include="..\src\lib\snprintf.cpp" />
+    <ClCompile Include="soh.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -135,15 +174,14 @@
     <ClCompile Include="..\src\lib\strlcpy.cpp" />
     <ClCompile Include="..\src\lib\token.cpp" />
     <ClCompile Include="util.cpp" />
-    <ClCompile Include="..\src\lib\valuepair.cpp" />
     <ClCompile Include="valuepair.cpp" />
     <ClCompile Include="version.cpp" />
     <ClCompile Include="winradiusd.cpp" />
     <ClCompile Include="xlat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\freeradius-devel\radiusd.h" />
     <ClInclude Include="mschap.h" />
-    <ClInclude Include="smbdes.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
