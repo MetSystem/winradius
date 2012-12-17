@@ -201,6 +201,14 @@ extern module_t rlm_chap;
 extern module_t rlm_mschap;
 extern module_t rlm_digest;
 extern module_t rlm_eap;
+extern module_t rlm_preprocess;
+extern module_t rlm_realm;
+extern module_t rlm_files;
+extern module_t rlm_expiration;
+extern module_t rlm_logintime;
+extern module_t rlm_acct_unique;
+extern module_t rlm_detail;
+extern module_t rlm_radutmp;
 //extern module_t rlm_sql;
 /* and so on ... */
 
@@ -239,8 +247,14 @@ static const lt_dlmodule_t lt_dlmodules[] = {
 	{ "rlm_eap_mschapv2", &rlm_eap_mschapv2 },
 	{ "rlm_eap_sim", &rlm_eap_sim },
 	{ "rlm_eap_tnc", &rlm_eap_tnc },
-
-		
+	{ "rlm_preprocess",&rlm_preprocess},
+	{ "rlm_realm",&rlm_realm},
+	{ "rlm_files",&rlm_files},
+	{ "rlm_expiration",&rlm_expiration},
+	{ "rlm_logintime",&rlm_logintime},
+	{ "rlm_acct_unique", &rlm_acct_unique},
+	{ "rlm_detail", &rlm_detail},
+	{ "rlm_radutmp", &rlm_radutmp},
 //	{ "rlm_sql_mysql", &rlm_sql_mysql },
 
 		
