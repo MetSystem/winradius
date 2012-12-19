@@ -209,6 +209,7 @@ extern module_t rlm_logintime;
 extern module_t rlm_acct_unique;
 extern module_t rlm_detail;
 extern module_t rlm_radutmp;
+extern module_t rlm_attr_filter;
 //extern module_t rlm_sql;
 /* and so on ... */
 
@@ -255,6 +256,7 @@ static const lt_dlmodule_t lt_dlmodules[] = {
 	{ "rlm_acct_unique", &rlm_acct_unique},
 	{ "rlm_detail", &rlm_detail},
 	{ "rlm_radutmp", &rlm_radutmp},
+	{ "rlm_attr_filter", &rlm_attr_filter},
 //	{ "rlm_sql_mysql", &rlm_sql_mysql },
 
 		

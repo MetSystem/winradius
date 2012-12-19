@@ -357,7 +357,7 @@ printf("read mainconfig OK!\n");
 	} else 
 #else
 	{
-		setlinebuf(stdout); /* unbuffered output */
+//		setlinebuf(stdout); /* unbuffered output */
 	}
 #endif //_WIN32
 
