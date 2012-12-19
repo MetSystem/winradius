@@ -20,7 +20,8 @@
  * Copyright 2000,2001,2006  The FreeRADIUS server project
  * Copyright 2001  hereUare Communications, Inc. <raghud@hereuare.com>
  */
-
+#include "stdafx.h"
+#include <rlm_dll.h>
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
 
@@ -166,7 +167,7 @@ static int md5_authenticate(UNUSED void *arg, EAP_HANDLER *handler)
  *	The module name should be the only globally exported symbol.
  *	That is, everything else should be 'static'.
  */
-EAP_TYPE rlm_eap_md5 = {
+extern "C" RLM_DLL_EXPORT EAP_TYPE rlm_eap_md5 = {
 	"eap_md5",
 	NULL,				/* attach */
 	md5_initiate,			/* Start the initial request */

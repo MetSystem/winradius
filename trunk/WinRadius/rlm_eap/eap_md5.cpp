@@ -34,7 +34,7 @@
  * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  *
  */
-
+#include "stdafx.h"
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
 

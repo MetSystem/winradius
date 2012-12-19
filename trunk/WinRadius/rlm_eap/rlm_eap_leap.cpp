@@ -20,6 +20,12 @@
  * Copyright 2003 Alan DeKok <aland@freeradius.org>
  * Copyright 2006 The FreeRADIUS server project
  */
+#include <SDKDDKVer.h>
+#define WIN32_LEAN_AND_MEAN             //  从 Windows 头文件中排除极少使用的信息
+#include <windows.h>
+
+#include <rlm_dll.h>
+
 
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
@@ -201,7 +207,7 @@ static int leap_authenticate(UNUSED void *instance, EAP_HANDLER *handler)
  *	The module name should be the only globally exported symbol.
  *	That is, everything else should be 'static'.
  */
-EAP_TYPE rlm_eap_leap = {
+extern "C" RLM_DLL_EXPORT  EAP_TYPE rlm_eap_leap = {
 	"eap_leap",
 	NULL,			/* attach */
 	leap_initiate,		/* Start the initial request, after Identity */
