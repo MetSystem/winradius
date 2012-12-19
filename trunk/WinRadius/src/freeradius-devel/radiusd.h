@@ -27,6 +27,10 @@
 #ifdef _WIN32
 #define WIN32_SERVER
 typedef int pid_t;
+//#ifdef WITH_DLL
+
+//#endif
+//#define HAVE_PTHREAD_H
 #endif
 
 
