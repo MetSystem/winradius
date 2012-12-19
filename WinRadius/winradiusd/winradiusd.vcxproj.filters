@@ -34,6 +34,33 @@
     <Filter Include="源文件\module\rlm_eap">
       <UniqueIdentifier>{6c7001f8-b714-471f-b1ba-c844dbf8ae4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\module\rlm_preprocess">
+      <UniqueIdentifier>{55d8401c-6a5a-45e0-b99c-494380f48482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_realm">
+      <UniqueIdentifier>{5b365ca6-809b-4c36-a777-a2b21c0d7ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_files">
+      <UniqueIdentifier>{60ef87e6-0214-450c-b039-8d7b0d175f83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_expiration">
+      <UniqueIdentifier>{d8b6b8d3-941f-4469-be76-234a1f76ddd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_logintime">
+      <UniqueIdentifier>{e98f7f6b-21a2-4585-8cb0-e0c38654b56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_acct_unique">
+      <UniqueIdentifier>{81492729-1dd5-4837-8979-4dc9b8d48bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_detail">
+      <UniqueIdentifier>{b0848c8d-6c5b-4ae7-ad55-cc900459b40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_radutmp">
+      <UniqueIdentifier>{8c98eae7-f245-453f-b686-0a0ec5a77da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_attr_filter">
+      <UniqueIdentifier>{4bfb5bb3-7448-4441-9194-fcc4fafa8bf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acct.cpp">
@@ -302,6 +329,42 @@
     </ClCompile>
     <ClCompile Include="..\src\lib\log-lib.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_preprocess\rlm_preprocess.cpp">
+      <Filter>源文件\module\rlm_preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="files.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_realm\rlm_realm.cpp">
+      <Filter>源文件\module\rlm_realm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_files\rlm_files.cpp">
+      <Filter>源文件\module\rlm_files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_expiration\rlm_expiration.cpp">
+      <Filter>源文件\module\rlm_expiration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_logintime\rlm_logintime.cpp">
+      <Filter>源文件\module\rlm_logintime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_logintime\timestr.cpp">
+      <Filter>源文件\module\rlm_logintime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_acct_unique\rlm_acct_unique.cpp">
+      <Filter>源文件\module\rlm_acct_unique</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_detail\rlm_detail.cpp">
+      <Filter>源文件\module\rlm_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="session.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_radutmp\rlm_radutmp.cpp">
+      <Filter>源文件\module\rlm_radutmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_attr_filter\rlm_attr_filter.cpp">
+      <Filter>源文件\module\rlm_attr_filter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

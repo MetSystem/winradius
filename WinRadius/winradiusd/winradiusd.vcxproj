@@ -90,7 +90,10 @@
     <ClCompile Include="..\src\lib\hmacsha1.cpp" />
     <ClCompile Include="..\src\lib\log-lib.cpp" />
     <ClCompile Include="..\src\lib\valuepair-lib.cpp" />
+    <ClCompile Include="..\src\modules\rlm_acct_unique\rlm_acct_unique.cpp" />
+    <ClCompile Include="..\src\modules\rlm_attr_filter\rlm_attr_filter.cpp" />
     <ClCompile Include="..\src\modules\rlm_chap\rlm_chap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_detail\rlm_detail.cpp" />
     <ClCompile Include="..\src\modules\rlm_digest\rlm_digest.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\cb.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\eap.cpp" />
@@ -120,11 +123,18 @@
     <ClCompile Include="..\src\modules\rlm_eap\tncs_connect.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\ttls.cpp" />
     <ClCompile Include="..\src\modules\rlm_exec\rlm_exec.cpp" />
+    <ClCompile Include="..\src\modules\rlm_expiration\rlm_expiration.cpp" />
+    <ClCompile Include="..\src\modules\rlm_files\rlm_files.cpp" />
+    <ClCompile Include="..\src\modules\rlm_logintime\rlm_logintime.cpp" />
+    <ClCompile Include="..\src\modules\rlm_logintime\timestr.cpp" />
     <ClCompile Include="..\src\modules\rlm_mschap\mschap1.cpp" />
     <ClCompile Include="..\src\modules\rlm_mschap\opendir.cpp" />
     <ClCompile Include="..\src\modules\rlm_mschap\rlm_mschap.cpp" />
     <ClCompile Include="..\src\modules\rlm_mschap\smbencrypt.cpp" />
     <ClCompile Include="..\src\modules\rlm_pap\rlm_pap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_preprocess\rlm_preprocess.cpp" />
+    <ClCompile Include="..\src\modules\rlm_radutmp\rlm_radutmp.cpp" />
+    <ClCompile Include="..\src\modules\rlm_realm\rlm_realm.cpp" />
     <ClCompile Include="acct.cpp" />
     <ClCompile Include="auth.cpp" />
     <ClCompile Include="client.cpp" />
@@ -145,6 +155,7 @@
     <ClCompile Include="..\src\lib\heap.cpp" />
     <ClCompile Include="..\src\lib\hmac.cpp" />
     <ClCompile Include="..\src\lib\isaac.cpp" />
+    <ClCompile Include="files.cpp" />
     <ClCompile Include="listen.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="mainconfig.cpp" />
@@ -162,6 +173,7 @@
     <ClCompile Include="..\src\lib\rbtree.cpp" />
     <ClCompile Include="realms.cpp" />
     <ClCompile Include="..\src\lib\sha1.cpp" />
+    <ClCompile Include="session.cpp" />
     <ClCompile Include="smbdes.cpp" />
     <ClCompile Include="..\src\lib\snprintf.cpp" />
     <ClCompile Include="soh.cpp" />
