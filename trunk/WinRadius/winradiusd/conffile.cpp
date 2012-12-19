@@ -2170,10 +2170,10 @@ CONF_SECTION *cf_section_sub_find_name2(const CONF_SECTION *cs,
 			break;
 	}
 	CONF_SECTION *ret = cf_itemtosection(ci);
-	if (strcmp(name2,"exec")==0){
-		printf("cf_section_sub_find_name2::exec\r\n");
-		cf_section_walk(ret);
-	}
+	//if (strcmp(name2,"exec")==0){
+	//	printf("cf_section_sub_find_name2::exec\r\n");
+		//cf_section_walk(ret);
+	//}
 	return ret;
 }
 
