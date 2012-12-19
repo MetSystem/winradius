@@ -18,12 +18,6 @@
     <ClInclude Include="eap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="eap_leap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="eap_md5.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="eap_mschapv2.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -74,12 +68,6 @@
     <ClCompile Include="eap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="eap_leap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="eap_md5.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="eap_tls.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -107,15 +95,6 @@
     <ClCompile Include="rlm_eap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="rlm_eap_gtc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="rlm_eap_leap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="rlm_eap_md5.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="rlm_eap_mschapv2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -129,9 +108,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="rlm_eap_ttls.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="smbdes.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="tls.cpp">

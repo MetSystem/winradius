@@ -12,8 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="eap.h" />
-    <ClInclude Include="eap_leap.h" />
-    <ClInclude Include="eap_md5.h" />
     <ClInclude Include="eap_mschapv2.h" />
     <ClInclude Include="eap_peap.h" />
     <ClInclude Include="eap_tnc.h" />
@@ -34,8 +32,6 @@
     <ClCompile Include="eapcommon.cpp" />
     <ClCompile Include="eapcrypto.cpp" />
     <ClCompile Include="eapsimlib.cpp" />
-    <ClCompile Include="eap_leap.cpp" />
-    <ClCompile Include="eap_md5.cpp" />
     <ClCompile Include="eap_tls.cpp" />
     <ClCompile Include="eap_tnc.cpp" />
     <ClCompile Include="fips186prf.cpp" />
@@ -43,16 +39,12 @@
     <ClCompile Include="mppe_keys.cpp" />
     <ClCompile Include="peap.cpp" />
     <ClCompile Include="rlm_eap.cpp" />
-    <ClCompile Include="rlm_eap_gtc.cpp" />
-    <ClCompile Include="rlm_eap_leap.cpp" />
-    <ClCompile Include="rlm_eap_md5.cpp" />
     <ClCompile Include="rlm_eap_mschapv2.cpp" />
     <ClCompile Include="rlm_eap_peap.cpp" />
     <ClCompile Include="rlm_eap_sim.cpp" />
     <ClCompile Include="rlm_eap_tls.cpp" />
     <ClCompile Include="rlm_eap_tnc.cpp" />
     <ClCompile Include="rlm_eap_ttls.cpp" />
-    <ClCompile Include="smbdes.cpp" />
     <ClCompile Include="tls.cpp" />
     <ClCompile Include="tncs_connect.cpp" />
     <ClCompile Include="ttls.cpp" />

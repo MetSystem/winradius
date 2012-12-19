@@ -19,6 +19,11 @@
  *
  * Copyright 2003,2006  The FreeRADIUS server project
  */
+#include <SDKDDKVer.h>
+#define WIN32_LEAN_AND_MEAN             //  从 Windows 头文件中排除极少使用的信息
+#include <windows.h>
+
+#include <rlm_dll.h>
 
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
@@ -66,6 +71,32 @@ static int gtc_detach(void *arg)
 
 	return 0;
 }
+
+#define DICT_VALUE_MAX_NAME_LEN (128)
+
+static DICT_VALUE *gtc_dict_valbyname(fr_hash_table_t *ht ,unsigned int attr, const char *name)
+{
+	DICT_VALUE *my_dv, *dv;
+	uint32_t buffer[(sizeof(*my_dv) + DICT_VALUE_MAX_NAME_LEN + 3)/4];
+
+	if (!name) return NULL;
+
+	my_dv = (DICT_VALUE *) buffer;
+	my_dv->attr = attr;
+	my_dv->name[0] = '\0';
+
+	/*
+	 *	Look up the attribute alias target, and use
+	 *	the correct attribute number if found.
+	 */
+	dv = (DICT_VALUE *)fr_hash_table_finddata(ht, my_dv);
+	if (dv) my_dv->attr = dv->value;
+
+	strlcpy(my_dv->name, name, DICT_VALUE_MAX_NAME_LEN + 1);
+
+	return (DICT_VALUE *)fr_hash_table_finddata(ht, my_dv);
+}
+
 
 /*
  *	Attach the module.
@@ -271,7 +302,7 @@ static int gtc_authenticate(void *type_data, EAP_HANDLER *handler)
  *	The module name should be the only globally exported symbol.
  *	That is, everything else should be 'static'.
  */
-EAP_TYPE rlm_eap_gtc = {
+extern "C" RLM_DLL_EXPORT  EAP_TYPE rlm_eap_gtc = {
 	"eap_gtc",
 	gtc_attach,	      		/* attach */
 	gtc_initiate,			/* Start the initial request */

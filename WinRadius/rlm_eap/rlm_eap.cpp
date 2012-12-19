@@ -21,6 +21,11 @@
  * Copyright 2001  hereUare Communications, Inc. <raghud@hereuare.com>
  * Copyright 2003  Alan DeKok <aland@freeradius.org>
  */
+#include <SDKDDKVer.h>
+#define WIN32_LEAN_AND_MEAN             //  从 Windows 头文件中排除极少使用的信息
+#include <windows.h>
+
+#include <rlm_dll.h>
 
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
@@ -731,7 +736,7 @@ static int eap_post_proxy(void *inst, REQUEST *request)
  *	The module name should be the only globally exported symbol.
  *	That is, everything else should be 'static'.
  */
- extern "C"  __declspec(dllexport) module_t rlm_eap = {
+extern "C" RLM_DLL_EXPORT module_t rlm_eap = {
 	RLM_MODULE_INIT,
 	"eap",
 	RLM_TYPE_CHECK_CONFIG_SAFE,   	/* type */
