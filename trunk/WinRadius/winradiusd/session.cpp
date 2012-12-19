@@ -20,6 +20,10 @@
  * Copyright 2000,2006  The FreeRADIUS server project
  */
 #include "stdafx.h"
+#ifdef _WIN32
+#include <process.h>
+#define execl _execl
+#endif
 #include	<freeradius-devel/ident.h>
 RCSID("$Id$")
 
@@ -31,6 +35,7 @@ RCSID("$Id$")
 #include	<sys/wait.h>
 #endif
 
+//#define __MINGW32__
 #ifdef WITH_SESSION_MGMT
 /*
  *	End a session by faking a Stop packet to all accounting modules.
@@ -159,20 +164,21 @@ int rad_check_ts(uint32_t nasaddr, unsigned int portnum, const char *user,
 	/*
 	 *	Fork.
 	 */
-	if ((pid = rad_fork()) < 0) { /* do wait for the fork'd result */
+	/*
+	// do wait for the fork'd result 
+	if ((pid = rad_fork()) < 0) { 
 		radlog(L_ERR, "Accounting: Failed in fork(): Cannot run checkrad\n");
 		return 2;
 	}
 
+	
 	if (pid > 0) {
 		child_pid = rad_waitpid(pid, &status);
 
-		/*
-		 *	It's taking too long.  Stop waiting for it.
-		 *
-		 *	Don't bother to kill it, as we don't care what
-		 *	happens to it now.
-		 */
+		//It's taking too long.  Stop waiting for it.
+		 //Don't bother to kill it, as we don't care what
+		 //happens to it now.
+	
 		if (child_pid == 0) {
 			radlog(L_ERR, "Check-TS: timeout waiting for checkrad");
 			return 2;
@@ -185,7 +191,7 @@ int rad_check_ts(uint32_t nasaddr, unsigned int portnum, const char *user,
 
 		return WEXITSTATUS(status);
 	}
-
+	*/
 	/*
 	 *  We don't close fd's 0, 1, and 2.  If we're in debugging mode,
 	 *  then they should go to stdout (etc), along with the other
