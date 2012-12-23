@@ -91,8 +91,9 @@ int check_config = FALSE;
 //struct main_config_t mainconfig;
 
 #define RADIUSD_VERSION "2.1.12"
-#define HOSTINFO "COMBA"
-const char *radiusd_version = "WinRADIUS 0.0.1 Base ON FreeRADIUS Version " RADIUSD_VERSION ", built on " __DATE__ " at " __TIME__;
+#define WIN_RADIUSD_VERSION "0.0.1"
+#define HOSTINFO ""
+const char *radiusd_version = "WinRADIUS " WIN_RADIUSD_VERSION " Base ON FreeRADIUS Version " RADIUSD_VERSION ", built on " __DATE__ " at " __TIME__;
 pid_t radius_pid;
 
 static int debug_memory = 0;
@@ -116,9 +117,6 @@ static void sig_hup (int);
  */
 int main(int argc, char *argv[])
 {
-
-
-
 	int rcode;
 	int argval;
 	int spawn_flag = TRUE;
