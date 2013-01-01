@@ -43,9 +43,9 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\openssl\openssl_winxp_vs2008_x86\openssl\include;F:\svn\existing-winradius-code-0\winradius-code-0\WinRadius\src;$(IncludePath)</IncludePath>
-    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\openssl\openssl_winxp_vs2008_x86\openssl\bin;D:\openssl\openssl_winxp_vs2008_x86\openssl\lib\engines;$(ExecutablePath)</ExecutablePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\openssl\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\openssl_winxp_vs2008_x86\openssl\include;..\src;$(IncludePath)</IncludePath>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ExecutablePath)</ExecutablePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -193,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\freeradius-devel\radiusd.h" />
+    <ClInclude Include="..\src\freeradius-devel\radpaths.h" />
     <ClInclude Include="mschap.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
