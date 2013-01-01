@@ -380,6 +380,9 @@
     <ClInclude Include="..\src\freeradius-devel\radiusd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\freeradius-devel\radpaths.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
