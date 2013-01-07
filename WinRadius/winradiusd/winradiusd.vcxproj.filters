@@ -61,6 +61,18 @@
     <Filter Include="源文件\module\rlm_attr_filter">
       <UniqueIdentifier>{4bfb5bb3-7448-4441-9194-fcc4fafa8bf5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\module\rlm_acctlog">
+      <UniqueIdentifier>{d4d216d4-b289-42f1-a847-8d9e3ae9b5bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_always">
+      <UniqueIdentifier>{09eea562-04fb-4f71-8d5a-1f2a11d985e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_attr_rewrite">
+      <UniqueIdentifier>{e58cb902-3571-4784-9fef-c39605b72ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\NewFilter1">
+      <UniqueIdentifier>{38db9d51-8668-41ca-aa21-a39f6853db82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acct.cpp">
@@ -365,6 +377,15 @@
     </ClCompile>
     <ClCompile Include="..\src\modules\rlm_attr_filter\rlm_attr_filter.cpp">
       <Filter>源文件\module\rlm_attr_filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_acctlog\rlm_acctlog.cpp">
+      <Filter>源文件\module\rlm_acctlog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_always\rlm_always.cpp">
+      <Filter>源文件\module\rlm_always</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_attr_rewrite\rlm_attr_rewrite.cpp">
+      <Filter>源文件\module\rlm_attr_rewrite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
