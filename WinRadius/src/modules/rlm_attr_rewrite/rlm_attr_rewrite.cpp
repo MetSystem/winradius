@@ -26,7 +26,7 @@ RCSID("$Id$")
 
 #include <freeradius-devel/radiusd.h>
 #include <freeradius-devel/modules.h>
-
+#define HAVE_REGEX_H
 #ifdef HAVE_REGEX_H
 #	include <regex.h>
 #endif
@@ -343,7 +343,7 @@ do_again:
 					 * exist in the current regex
 					 */
 					if (pmatch[j].rm_so == -1){
-						p = request_data_get(request,request,REQUEST_DATA_REGEX | j);
+						p = (char *)request_data_get(request,request,REQUEST_DATA_REGEX | j);
 						if (p){
 							free(p);
 							continue;
