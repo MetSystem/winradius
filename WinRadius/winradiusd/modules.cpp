@@ -701,7 +701,7 @@ module_instance_t *find_module_instance(CONF_SECTION *modules,
 	 */
 	
 	printf("(node->entry->module->instantiate)(cs, &node->insthandle) < 0\r\n");
-	cf_section_walk(cs);
+	//cf_section_walk(cs);
 
 	if ((node->entry->module->instantiate) &&
 	    (!check_config || check_config_safe) &&
