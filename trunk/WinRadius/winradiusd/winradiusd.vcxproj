@@ -43,9 +43,9 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\regex-2.7-bin\include;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\include;..\src;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\gdbm-1.8.3-1-lib\include;..\3rd-lib\regex-2.7-bin\include;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\include;..\src;$(IncludePath)</IncludePath>
     <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\regex-2.7-bin\bin;$(ExecutablePath)</ExecutablePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\regex-2.7-bin\lib;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\gdbm-1.8.3-1-lib\lib;..\3rd-lib\regex-2.7-bin\lib;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -60,7 +60,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>regex.lib;libeay32.lib;ssleay32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libgdbm_compat.lib;libgdbm.lib;regex.lib;libeay32.lib;ssleay32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -96,6 +96,7 @@
     <ClCompile Include="..\src\modules\rlm_attr_filter\rlm_attr_filter.cpp" />
     <ClCompile Include="..\src\modules\rlm_attr_rewrite\rlm_attr_rewrite.cpp" />
     <ClCompile Include="..\src\modules\rlm_cache\rlm_cache.cpp" />
+    <ClCompile Include="..\src\modules\rlm_caching\rlm_caching.cpp" />
     <ClCompile Include="..\src\modules\rlm_chap\rlm_chap.cpp" />
     <ClCompile Include="..\src\modules\rlm_detail\rlm_detail.cpp" />
     <ClCompile Include="..\src\modules\rlm_digest\rlm_digest.cpp" />

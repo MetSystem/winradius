@@ -73,6 +73,9 @@
     <Filter Include="源文件\module\rlm_cache">
       <UniqueIdentifier>{38db9d51-8668-41ca-aa21-a39f6853db82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\module\rlm_caching">
+      <UniqueIdentifier>{057bc4b8-705e-4fd1-9b01-c412e3fac708}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acct.cpp">
@@ -389,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="..\src\modules\rlm_cache\rlm_cache.cpp">
       <Filter>源文件\module\rlm_cache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_caching\rlm_caching.cpp">
+      <Filter>源文件\module\rlm_caching</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
