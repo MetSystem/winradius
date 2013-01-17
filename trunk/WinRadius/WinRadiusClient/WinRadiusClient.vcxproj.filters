@@ -81,6 +81,18 @@
     <ClCompile Include="WinRadiusClient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="radclient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\getopt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_mschap\smbdes.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\winradiusd\mschap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\freeradius-devel\hash.h">
