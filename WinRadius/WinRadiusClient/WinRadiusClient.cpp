@@ -28,7 +28,7 @@ static int filename_walk(void *context, const char *data)
 }
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int t_main(int argc, _TCHAR* argv[])
 {
 
 	WSADATA wsaData;
@@ -42,7 +42,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 1;
 	}
 
-	char* radius_dir="E:\\cpp\\WinRadius\\dictionary";
+	char* radius_dir="..\\dictionary";
 	if (dict_init(radius_dir, RADIUS_DICTIONARY) < 0) {
 		fr_perror("radclient");
 		return 1;

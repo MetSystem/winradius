@@ -43,7 +43,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\svn\existing-winradius-code-0\winradius-code-0\WinRadius\src;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\getopt.cpp" />
     <ClCompile Include="..\src\lib\dict.cpp" />
     <ClCompile Include="..\src\lib\getaddrinfo.cpp" />
     <ClCompile Include="..\src\lib\hash.cpp" />
@@ -100,6 +101,9 @@
     <ClCompile Include="..\src\lib\rbtree.cpp" />
     <ClCompile Include="..\src\lib\sha1.cpp" />
     <ClCompile Include="..\src\lib\snprintf.cpp" />
+    <ClCompile Include="..\src\modules\rlm_mschap\smbdes.cpp" />
+    <ClCompile Include="..\winradiusd\mschap.cpp" />
+    <ClCompile Include="radclient.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
