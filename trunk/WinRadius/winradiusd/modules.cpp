@@ -42,7 +42,7 @@ RCSID("$Id$")
 
 
 extern int check_config;
-
+extern void cf_section_walk(const CONF_SECTION *cp);
 typedef struct indexed_modcallable {
 	int		comp;
 	int		idx;
@@ -700,8 +700,8 @@ module_instance_t *find_module_instance(CONF_SECTION *modules,
 	 *	Call the module's instantiation routine.
 	 */
 	
-	printf("(node->entry->module->instantiate)(cs, &node->insthandle) < 0\r\n");
-	//cf_section_walk(cs);
+	//printf("(node->entry->module->instantiate)(cs, &node->insthandle) < 0\r\n");
+	cf_section_walk(cs);
 
 	if ((node->entry->module->instantiate) &&
 	    (!check_config || check_config_safe) &&

@@ -24,6 +24,7 @@
 #include "stdafx.h"
 
 #ifdef _WIN32
+#include <io.h>
 #include <direct.h>
 #define WIN32_SERVER
 //extern int		radlog(int, const char *, ...);
@@ -889,7 +890,7 @@ int read_mainconfig(int reload)
 	 *	did switch uid/gid, then the code in switch_users()
 	 *	took care of setting the file permissions correctly.
 	 */
-#ifndef _WIN32
+//#ifndef _WIN32
 	if ((mainconfig.radlog_dest == RADLOG_FILES) &&
 	    (mainconfig.radlog_fd < 0)) {
 		mainconfig.radlog_fd = open(mainconfig.log_file,
@@ -900,7 +901,7 @@ int read_mainconfig(int reload)
 			return -1;
 		}
 	}
-#endif
+//#endif
 
 	/* Initialize the dictionary */
 	cp = cf_pair_find(cs, "dictionary");

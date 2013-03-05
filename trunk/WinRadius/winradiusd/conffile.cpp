@@ -1070,9 +1070,9 @@ static const char *parse_spaces = "                                             
 int cf_section_parse(CONF_SECTION *cs, void *base,
 	const CONF_PARSER *variables)
 {
-	printf("----cf_section_parse----\r\n");
-	cf_section_walk(cs);
-	printf("----cf_section_parse END----\r\n");
+	//printf("----cf_section_parse----\r\n");
+	//cf_section_walk(cs);
+	//printf("----cf_section_parse END----\r\n");
 	int i;
 	void *data;
 
