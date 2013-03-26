@@ -111,7 +111,6 @@ int cf_walk_callback(void * context,void *data)
 	}
 	CONF_PAIR *mycp = (CONF_PAIR *) data;
 
-	printf("attr:%s\r\n",mycp->attr);
 	return 0;
 }
 
