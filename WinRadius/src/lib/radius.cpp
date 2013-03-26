@@ -1382,7 +1382,7 @@ int rad_encode(RADIUS_PACKET *packet, const RADIUS_PACKET *original,
 		fr_strerror_printf("Out of memory");
 		return -1;
 	}
-
+	printf("packet->data_len=%d\r\n",packet->data_len);
 	memcpy(packet->data, hdr, packet->data_len);
 	hdr = (radius_packet_t *) packet->data;
 
