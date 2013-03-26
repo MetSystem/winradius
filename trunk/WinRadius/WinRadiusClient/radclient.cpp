@@ -21,14 +21,17 @@
  * Copyright 2000  Miquel van Smoorenburg <miquels@cistron.nl>
  * Copyright 2000  Alan DeKok <aland@ox.org>
  */
-
-#include "stdafx.h"
+
+
+#include "stdafx.h"
+
 #ifdef _WIN32
 #include <winsock2.h>
 #define HAVE_GETOPT_H
 #include <stddef.h>
 #define RADIUSD_VERSION "WinRadClient 0.0.3"
-#endif
+#endif
+
 
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
@@ -250,13 +253,18 @@ static int radclient_init(const char *filename)
 		 *	Read the VP's.
 		 */
 		radclient->request->vps = readvp2(fp, &filedone, "radclient:");
+		
 		if (!radclient->request->vps) {
 			rad_free(&radclient->request);
 			free(radclient);
 			if (fp != stdin) fclose(fp);
 			return 1;
 		}
-
+		VALUE_PAIR *first=radclient->request->vps;
+		do{
+			printf("name=%s;id=%d\r\n",first->name,first->attribute);
+		}
+		while ((first=first->next)!=NULL);
 		/*
 		 *	Keep a copy of the the User-Password attribute.
 		 */
@@ -823,19 +831,32 @@ static int getport(const char *name)
 }
 
 int main(int argc, char **argv)
-{
-#ifdef _WIN32
-
-	WSADATA wsaData;
-
-	int iResult;
-
-	// Initialize Winsock
-	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
-	if (iResult != 0) {
-		printf("WSAStartup failed: %d\n", iResult);
-		return 1;
-	}
+{
+
+#ifdef _WIN32
+
+
+
+	WSADATA wsaData;
+
+
+
+	int iResult;
+
+
+
+	// Initialize Winsock
+
+	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+
+	if (iResult != 0) {
+
+		printf("WSAStartup failed: %d\n", iResult);
+
+		return 1;
+
+	}
+
 #endif
 	char *p;
 	int c;
@@ -1156,11 +1177,16 @@ int main(int argc, char **argv)
 			 *	If there's a packet to receive,
 			 *	receive it, but don't wait for a
 			 *	packet.
-			 */
-			printf("recv_one_packet(0)\n");
-			if (recv_one_packet(0)!=0)
-			{
-			//	break;
+			 */
+
+			printf("recv_one_packet(0)\n");
+
+			if (recv_one_packet(0)!=0)
+
+			{
+
+			//	break;
+
 			}
 
 			/*
@@ -1256,11 +1282,15 @@ int main(int argc, char **argv)
 		 *	sending more packets (if necessary), and updating
 		 *	the sleep time.
 		 */
-		if (!done && (sleep_time > 0)) {
+		if (!done && (sleep_time > 0)) {
+
 			printf("recv_one_packet(sleep_time):%d\n",sleep_time);
-			if (recv_one_packet(sleep_time)!=0)
-			{
-				//break;
+			if (recv_one_packet(sleep_time)!=0)
+
+			{
+
+				//break;
+
 			}
 		}
 	} while (!done);
@@ -1275,7 +1305,8 @@ int main(int argc, char **argv)
 		printf("\t     Total denied auths:  %d\n", totaldeny);
 		printf("\t       Total lost auths:  %d\n", totallost);
 	}
-
+
+
 #ifdef _WIN32
 	WSACleanup();
 #endif
