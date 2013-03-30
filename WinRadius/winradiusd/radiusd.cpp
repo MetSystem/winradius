@@ -28,7 +28,7 @@
 #include "stdafx.h"
 
 #ifdef _WIN32
-
+#include <process.h>
 //copy from linux os <stdio.h>
 #define	STDIN_FILENO	0
 #define	STDOUT_FILENO	1
@@ -41,10 +41,10 @@ typedef int pid_t;
 //#define WIN32_SERVER
 
 //fake function .instead linux's getpid.only for complie on win32
-int getpid()
-{
-	return 0;
-}
+//int getpid()
+//{
+#define getpid _getpid
+//}
 #endif //_WIN32
 
 #include <freeradius-devel/ident.h>
