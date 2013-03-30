@@ -59,7 +59,8 @@ RCSID("$Id$")
 #include <freeradius-devel/sha1.h>
 
 #ifdef _WIN32
-extern int getpid();
+#include <process.h>
+#define getpid _getpid
 #endif
 /*
  * given a radius request with many attribues in the EAP-SIM range, build
