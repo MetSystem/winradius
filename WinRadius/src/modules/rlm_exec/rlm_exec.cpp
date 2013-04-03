@@ -169,7 +169,7 @@ static int exec_detach(void *instance)
 	rlm_exec_t	*inst =(rlm_exec_t *) instance;
 
 	if (inst->xlat_name) {
-		xlat_unregister(inst->xlat_name, exec_xlat/*, instance*/);
+		xlat_unregister(inst->xlat_name, exec_xlat, instance);
 		free(inst->xlat_name);
 	}
 
