@@ -796,15 +796,16 @@ int xlat_register(const char *module, RAD_XLAT_FUNC func, void *instance)
 	return 0;
 }
 
+
 /*
  *      Unregister an xlat function.
  *
  *	We can only have one function to call per name, so the
  *	passing of "func" here is extraneous.
  */
-void xlat_unregister(const char *module, RAD_XLAT_FUNC func)
+void xlat_unregister(const char *module, RAD_XLAT_FUNC func, void *instance)
 {
-	rbnode_t	*node;
+	xlat_t	*c;
 	xlat_t		my_xlat;
 
 	func = func;		/* -Wunused */
@@ -814,10 +815,12 @@ void xlat_unregister(const char *module, RAD_XLAT_FUNC func)
 	strlcpy(my_xlat.module, module, sizeof(my_xlat.module));
 	my_xlat.length = strlen(my_xlat.module);
 
-	node = rbtree_find(xlat_root, &my_xlat);
-	if (!node) return;
+	c = (xlat_t *)rbtree_finddata(xlat_root, &my_xlat);
+	if (!c) return;
 
-	rbtree_delete(xlat_root, node);
+	if (c->instance != instance) return;
+
+	rbtree_deletebydata(xlat_root, c);
 }
 
 /*
