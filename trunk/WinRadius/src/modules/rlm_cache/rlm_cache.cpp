@@ -21,6 +21,7 @@
  */
 
 #include "stdafx.h"
+#include <Windows.h>
 #include <freeradius-devel/ident.h>
 RCSID("$Id$")
 
