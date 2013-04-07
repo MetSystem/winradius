@@ -210,7 +210,8 @@ extern module_t rlm_acct_unique;
 extern module_t rlm_detail;
 extern module_t rlm_radutmp;
 extern module_t rlm_attr_filter;
-//extern module_t rlm_sql;
+
+extern module_t rlm_sql;
 /* and so on ... */
 
 extern EAP_TYPE rlm_eap_md5;
@@ -222,7 +223,7 @@ extern EAP_TYPE rlm_eap_peap;
 extern EAP_TYPE rlm_eap_mschapv2;
 extern EAP_TYPE rlm_eap_sim;
 extern EAP_TYPE rlm_eap_tnc;
-//extern rlm_sql_module_t rlm_sql_mysql;
+extern rlm_sql_module_t rlm_sql_mysql;
 /* and so on ... */
 typedef struct lt_dlmodule_t {
   const char	*name;
@@ -237,7 +238,7 @@ static const lt_dlmodule_t lt_dlmodules[] = {
 	{ "rlm_mschap", &rlm_mschap },
 	{ "rlm_digest",&rlm_digest},
 	{ "rlm_eap", &rlm_eap },
-
+	{ "rlm_sql", &rlm_sql},
 
 	{ "rlm_eap_md5", &rlm_eap_md5 },
 	{ "rlm_eap_leap", &rlm_eap_leap },
@@ -257,7 +258,7 @@ static const lt_dlmodule_t lt_dlmodules[] = {
 	{ "rlm_detail", &rlm_detail},
 	{ "rlm_radutmp", &rlm_radutmp},
 	{ "rlm_attr_filter", &rlm_attr_filter},
-//	{ "rlm_sql_mysql", &rlm_sql_mysql },
+	{ "rlm_sql_mysql", &rlm_sql_mysql },
 
 		
 	{ NULL, NULL }
