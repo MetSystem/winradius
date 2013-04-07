@@ -43,9 +43,9 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\gdbm-1.8.3-1-lib\include;..\3rd-lib\regex-2.7-bin\include;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\include;..\src;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\MySQL-Server-5.6\include;..\3rd-lib\gdbm-1.8.3-1-lib\include;..\3rd-lib\regex-2.7-bin\include;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\include;..\src;$(IncludePath)</IncludePath>
     <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\regex-2.7-bin\bin;$(ExecutablePath)</ExecutablePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\gdbm-1.8.3-1-lib\lib;..\3rd-lib\regex-2.7-bin\lib;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\3rd-lib\MySQL-Server-5.6\lib;..\3rd-lib\gdbm-1.8.3-1-lib\lib;..\3rd-lib\regex-2.7-bin\lib;..\3rd-lib\openssl_winxp_vs2008_x86\openssl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -60,7 +60,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libgdbm_compat.lib;libgdbm.lib;regex.lib;libeay32.lib;ssleay32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libmysql.lib;libgdbm_compat.lib;libgdbm.lib;regex.lib;libeay32.lib;ssleay32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -130,6 +130,8 @@
     <ClCompile Include="..\src\modules\rlm_exec\rlm_exec.cpp" />
     <ClCompile Include="..\src\modules\rlm_expiration\rlm_expiration.cpp" />
     <ClCompile Include="..\src\modules\rlm_files\rlm_files.cpp" />
+    <ClCompile Include="..\src\modules\rlm_ippool\rlm_ippool.cpp" />
+    <ClCompile Include="..\src\modules\rlm_ippool\rlm_ippool_tool.cpp" />
     <ClCompile Include="..\src\modules\rlm_logintime\rlm_logintime.cpp" />
     <ClCompile Include="..\src\modules\rlm_logintime\timestr.cpp" />
     <ClCompile Include="..\src\modules\rlm_mschap\mschap1.cpp" />
@@ -140,6 +142,13 @@
     <ClCompile Include="..\src\modules\rlm_preprocess\rlm_preprocess.cpp" />
     <ClCompile Include="..\src\modules\rlm_radutmp\rlm_radutmp.cpp" />
     <ClCompile Include="..\src\modules\rlm_realm\rlm_realm.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sqlcounter\rlm_sqlcounter.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sqlhpwippool\rlm_sqlhpwippool.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sqlippool\rlm_sqlippool.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sql\drivers\rlm_sql_mysql\sql_mysql.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sql\rlm_sql.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sql\sql.cpp" />
+    <ClCompile Include="..\src\modules\rlm_sql_log\rlm_sql_log.cpp" />
     <ClCompile Include="acct.cpp" />
     <ClCompile Include="auth.cpp" />
     <ClCompile Include="client.cpp" />
@@ -199,6 +208,8 @@
   <ItemGroup>
     <ClInclude Include="..\src\freeradius-devel\radiusd.h" />
     <ClInclude Include="..\src\freeradius-devel\radpaths.h" />
+    <ClInclude Include="..\src\modules\rlm_ippool\config.h" />
+    <ClInclude Include="..\src\modules\rlm_sql\drivers\rlm_sql_mysql\config.h" />
     <ClInclude Include="mschap.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
