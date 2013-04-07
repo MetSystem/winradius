@@ -10,7 +10,7 @@
 #endif 
 
 //edit the original code
-//#if (defined __WIN32__) || (defined _WIN32)
+#if (defined __WIN32__) || (defined _WIN32)
 //# ifdef BUILD_GDBM_DLL
 //#  define GDBM_DLL_IMPEXP     __DLL_EXPORT__
 //# elif defined(BUILD_GDBM_STATIC)
@@ -20,12 +20,10 @@
 //# elif defined (USE_GDBM_STATIC)
 //#  define GDBM_DLL_IMPEXP      
 //# else /* assume USE_GDBM_DLL */
-//#  define GDBM_DLL_IMPEXP     __DLL_IMPORT__
+#  define GDBM_DLL_IMPEXP     __DLL_IMPORT__
 //# endif
 //#else /* __WIN32__ */
 //# define GDBM_DLL_IMPEXP  
-//#endif
+#endif
 
-//be sure to this
-# define GDBM_DLL_IMPEXP  
 #endif /* _GDBMDLLIMPEXP_H_ */

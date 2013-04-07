@@ -76,7 +76,6 @@ typedef struct {int dummy[10];} *GDBM_FILE;
 /* External variable, the gdbm build release string. */
 GDBM_DLL_IMPEXP char *gdbm_version;	
 
-
 /* GDBM C++ support */
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
@@ -123,7 +122,7 @@ GDBM_DLL_IMPEXP int gdbm_fdesc __P((GDBM_FILE));
 #define	GDBM_OPT_ALREADY_SET	19
 #define	GDBM_OPT_ILLEGAL	20
 typedef int gdbm_error;		/* For compatibilities sake. */
-GDBM_DLL_IMPEXP gdbm_error gdbm_errno;
+extern "C" GDBM_DLL_IMPEXP gdbm_error gdbm_errno;
 
 /* extra prototypes */
 
