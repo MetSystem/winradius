@@ -76,6 +76,30 @@
     <Filter Include="源文件\module\rlm_caching">
       <UniqueIdentifier>{057bc4b8-705e-4fd1-9b01-c412e3fac708}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\module\rlm_sql">
+      <UniqueIdentifier>{e307ee76-680e-4b6e-98b8-f59702cc1c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_sql\drivers">
+      <UniqueIdentifier>{f1d62d13-2768-4ce4-bd82-0ba77033c5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_sql\drivers\rlm_sql_mysql">
+      <UniqueIdentifier>{0e16d1da-a7ab-4041-8ae2-737ec1a34faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_sql_log">
+      <UniqueIdentifier>{96fc30ba-06de-4527-9dcd-1be722a3080f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_sqlcounter">
+      <UniqueIdentifier>{7de950f6-bc34-4285-94ad-e24fcca9f34b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_ippool">
+      <UniqueIdentifier>{0956be80-2a7e-4ffe-81d4-b2cd8f45deb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_sqlhpwippool">
+      <UniqueIdentifier>{4d406dd4-1580-40f4-be9b-5c0b36054890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\module\rlm_sqlippool">
+      <UniqueIdentifier>{d1dbd916-2171-41d8-b13e-bfb9281ef90d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acct.cpp">
@@ -396,6 +420,33 @@
     <ClCompile Include="..\src\modules\rlm_caching\rlm_caching.cpp">
       <Filter>源文件\module\rlm_caching</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sql\rlm_sql.cpp">
+      <Filter>源文件\module\rlm_sql</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sql\sql.cpp">
+      <Filter>源文件\module\rlm_sql</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sql\drivers\rlm_sql_mysql\sql_mysql.cpp">
+      <Filter>源文件\module\rlm_sql\drivers\rlm_sql_mysql</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sql_log\rlm_sql_log.cpp">
+      <Filter>源文件\module\rlm_sql_log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sqlcounter\rlm_sqlcounter.cpp">
+      <Filter>源文件\module\rlm_sqlcounter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_ippool\rlm_ippool.cpp">
+      <Filter>源文件\module\rlm_ippool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_ippool\rlm_ippool_tool.cpp">
+      <Filter>源文件\module\rlm_ippool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sqlhpwippool\rlm_sqlhpwippool.cpp">
+      <Filter>源文件\module\rlm_sqlhpwippool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_sqlippool\rlm_sqlippool.cpp">
+      <Filter>源文件\module\rlm_sqlippool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mschap.h">
@@ -412,6 +463,12 @@
     </ClInclude>
     <ClInclude Include="..\src\freeradius-devel\radpaths.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\modules\rlm_sql\drivers\rlm_sql_mysql\config.h">
+      <Filter>源文件\module\rlm_sql\drivers\rlm_sql_mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\modules\rlm_ippool\config.h">
+      <Filter>源文件\module\rlm_ippool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
