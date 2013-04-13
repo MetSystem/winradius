@@ -1,4 +1,14 @@
 V0.0.4_2013.01.18 by gu.lilan.2005@gmail.com
+--English--
+Add moudles in this version :
+rlm_sql(only include rlm_sql_sql)
+rlm_sql_log
+rlm_sqlcounter
+rlm_sqlhpwippool
+rlm_sqlippool
+rlm_ippool
+///////////////////////////////////////////////////////////
+V0.0.4_2013.01.18 by gu.lilan.2005@gmail.com
 --Chinese--
 修正winradiusclient项目,增加radclient.cpp.同样,此时仅能编译.
 增加rlm_acctlog、rlm_always、rlm_attr_rewrite、rlm_caching四个模块。
