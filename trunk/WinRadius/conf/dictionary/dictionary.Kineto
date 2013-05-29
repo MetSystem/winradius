@@ -1,0 +1,38 @@
+# -*- text -*-
+##############################################################################
+#
+#	Dictionary for Kineto.
+#
+#	$Id$
+#
+##############################################################################
+
+VENDOR		Kineto				16445	format=2,1
+
+BEGIN-VENDOR	Kineto
+
+ATTRIBUTE	Kineto-Message-Type			0xff80	octets
+ATTRIBUTE	Kineto-HNB-Remote-Address		0xff81	octets
+ATTRIBUTE	Kineto-HNB-Identity			0xff82	string
+ATTRIBUTE	Kineto-HNB-Macro-Coverage-Indicator	0xff83	octets
+ATTRIBUTE	Kineto-HNB-Macro-Geran-Cell-Id		0xff84	octets
+ATTRIBUTE	Kineto-HNB-Macro-Utran-Cell-Id		0xff85	octets
+ATTRIBUTE	Kineto-HNB-Geographical-Coordinates	0xff86	octets
+ATTRIBUTE	Kineto-HNB-Altitude-Direction		0xff87	octets
+ATTRIBUTE	Kineto-HNB-IP-Address			0xff88	octets
+ATTRIBUTE	Kineto-HNB-PLMN-Id			0xff89	octets
+ATTRIBUTE	Kineto-HNB-Cell-Identity		0xff8a	octets
+ATTRIBUTE	Kineto-HNB-Location-Area-Code		0xff8b	octets
+ATTRIBUTE	Kineto-HNB-Routing-Area-Code		0xff8c	octets
+ATTRIBUTE	Kineto-HNB-Service-Area-Code		0xff8d	octets
+ATTRIBUTE	Kineto-HNB-CSG-Id			0xff8e	octets
+ATTRIBUTE	Kineto-UE-Capabilities			0xff8f	octets
+ATTRIBUTE	Kineto-HNB-Location-Area-Indicator	0xff90	octets
+ATTRIBUTE	Kineto-HNB-Billing-Rate-Indicator	0xff91	octets
+ATTRIBUTE	Kineto-Register-Reject-Cause		0xff92	octets
+ATTRIBUTE	Kineto-HNB-Location-Blacklist-Indicator	0xff93	octets
+
+#VALUE	Kineto-Message-Type	HNB-Register-Request	0
+#VALUE	Kineto-Message-Type	UE-Register-Request	1
+
+END-VENDOR	Kineto
