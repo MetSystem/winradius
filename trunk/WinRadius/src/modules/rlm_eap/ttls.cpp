@@ -900,6 +900,7 @@ static void my_request_free(void *data)
  */
 int eapttls_process(EAP_HANDLER *handler, tls_session_t *tls_session)
 {
+	printf("eapttls_process\r\n");
 	int rcode = PW_AUTHENTICATION_REJECT;
 	REQUEST *fake;
 	VALUE_PAIR *vp;
