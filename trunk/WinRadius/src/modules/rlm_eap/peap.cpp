@@ -729,6 +729,7 @@ static void print_tunneled_data(const uint8_t *data, size_t data_len)
  */
 int eappeap_process(EAP_HANDLER *handler, tls_session_t *tls_session)
 {
+	printf("eappeap_process:\r\n");
 	peap_tunnel_t *t = (peap_tunnel_t *)tls_session->opaque;
 	REQUEST *fake;
 	VALUE_PAIR *vp;
