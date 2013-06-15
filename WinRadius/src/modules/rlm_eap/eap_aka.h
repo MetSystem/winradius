@@ -35,7 +35,7 @@ RCSIDH(eap_aka_h, "$Id$")
 enum eapaka_subtype {
   eapaka_challenge   = 1,
   eapaka_authentication_reject = 2,
-  eapaka_synchronization_failure = 4,	//add by wuweijie 2012-07-12 for sqn sync
+  eapaka_synchronization_failure = 4,	
   eapaka_notification= 12,
   eapaka_reauth      = 13,
   eapaka_client_error = 14,
@@ -101,7 +101,7 @@ struct eapaka_keys {
   unsigned char ik[EAPAKA_IK_SIZE];
   unsigned char ck[EAPAKA_CK_SIZE];
   unsigned char res[EAPSIM_RES_SIZE];
-  unsigned char auts[14]; //add by wuweijie 2012-07-20 for sqn sync
+  unsigned char auts[14]; 
   /*unsigned char ak[6];
   unsigned char k[16];
   unsigned char sqn[6];

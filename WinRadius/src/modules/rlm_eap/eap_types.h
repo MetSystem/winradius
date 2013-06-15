@@ -53,6 +53,7 @@ RCSIDH(eap_types_h, "$Id$")
 #define PW_EAP_LEAP		17
 #define PW_EAP_SIM              18
 #define PW_EAP_TTLS		21
+#define PW_EAP_AKA              23
 #define PW_EAP_PEAP		25
 #define PW_EAP_MSCHAPV2		26
 #define PW_EAP_CISCO_MSCHAPV2	29

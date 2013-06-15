@@ -53,6 +53,15 @@ RCSIDH(eap_sim_h, "$Id$")
 #define ATTRIBUTE_EAP_SIM_KC2           1213
 #define ATTRIBUTE_EAP_SIM_KC3           1214
 
+#define ATTRIBUTE_EAP_AKA_IK            1215	
+#define ATTRIBUTE_EAP_AKA_CK            1216
+#define ATTRIBUTE_EAP_AKA_SQN			1217
+#define ATTRIBUTE_EAP_AKA_K				1218
+#define ATTRIBUTE_EAP_AKA_AMF			1219
+#define ATTRIBUTE_EAP_AKA_OP			1220
+#define ATTRIBUTE_EAP_AKA_MODEL			1221
+#define ATTRIBUTE_EAP_AKA_OPC        	1222
+
 enum eapsim_subtype {
   eapsim_start       = 10,
   eapsim_challenge   = 11,
@@ -81,6 +90,9 @@ enum eapsim_serverstates {
 };
 
 #define PW_EAP_SIM_RAND                 1
+#define PW_EAP_SIM_AUTN                 2	
+#define PW_EAP_SIM_RES                  3	
+#define PW_EAP_SIM_AUTS					4	
 #define PW_EAP_SIM_PADDING              6
 #define PW_EAP_SIM_NONCE_MT             7
 #define PW_EAP_SIM_PERMANENT_ID_REQ    10
@@ -94,6 +106,7 @@ enum eapsim_serverstates {
 #define PW_EAP_SIM_COUNTER             19
 #define PW_EAP_SIM_COUNTER_TOO_SMALL   20
 #define PW_EAP_SIM_NONCE_S             21
+#define PW_EAP_SIM_CLIENT_ERROR_CODE   22	
 #define PW_EAP_SIM_IV                 129
 #define PW_EAP_SIM_ENCR_DATA          130
 #define PW_EAP_SIM_NEXT_PSEUDONUM     132
@@ -125,6 +138,8 @@ extern int unmap_eapsim_basictypes(RADIUS_PACKET *r,
 #define EAPSIM_CALCMAC_SIZE 20
 #define EAPSIM_NONCEMT_SIZE 16
 #define EAPSIM_AUTH_SIZE    16
+#define EAPSIM_AUTN_SIZE    16	
+#define EAPSIM_RES_SIZE     16	
 
 struct eapsim_keys {
   /* inputs */
