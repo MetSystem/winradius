@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\lib\3gppsecurity.cpp" />
     <ClCompile Include="..\src\lib\dirent.cpp" />
     <ClCompile Include="..\src\lib\hmacsha1.cpp" />
     <ClCompile Include="..\src\lib\log-lib.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="..\src\modules\rlm_digest\rlm_digest.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\cb.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\eap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\eapakalib.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\eapcommon.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\eapcrypto.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\eapsimlib.cpp" />
@@ -114,6 +116,7 @@
     <ClCompile Include="..\src\modules\rlm_eap\mppe_keys.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\peap.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\rlm_eap.cpp" />
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_aka.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_gtc.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_leap.cpp" />
     <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_md5.cpp" />
