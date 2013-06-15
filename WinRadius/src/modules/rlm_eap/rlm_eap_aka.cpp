@@ -33,6 +33,7 @@ RCSID("$Id$")
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "eap.h"
 #include "eap_types.h"
@@ -220,7 +221,7 @@ static int eap_aka_getchalans(VALUE_PAIR *vps,struct eap_aka_server_state *ess, 
 	}
 	memcpy(sqn, vp->vp_strvalue, 6);
 
-	long long isqn = sqn[5]*pow(2,0) + sqn[4]*pow(2,8) + sqn[3]*pow(2,16) + sqn[2]*pow(2,24) + sqn[1]*pow(2,32) + sqn[0]*pow(2,40);
+	long long isqn = sqn[5]*pow(2.0,0) + sqn[4]*pow(2.0,8) + sqn[3]*pow(2.0,16) + sqn[2]*pow(2.0,24) + sqn[1]*pow(2.0,32) + sqn[0]*pow(2.0,40);
         isqn = isqn + 32;
         if(isqn > 0xffffffffffff)
                 isqn = 0;
@@ -381,9 +382,9 @@ static int eap_aka_sendsuccess(EAP_HANDLER *handler)
 	pairreplace(outvps, newvp);
 
 	p = ess->keys.msk;
-	add_reply(outvps, "MS-MPPE-Recv-Key", p, EAPTLS_MPPE_KEY_LEN);
+	add_reply(outvps, "MS-MPPE-Recv-Key", (char*)p, EAPTLS_MPPE_KEY_LEN);
 	p += EAPTLS_MPPE_KEY_LEN;
-	add_reply(outvps, "MS-MPPE-Send-Key", p, EAPTLS_MPPE_KEY_LEN);
+	add_reply(outvps, "MS-MPPE-Send-Key", (char*)p, EAPTLS_MPPE_KEY_LEN);
 	return 1;
 }
 
@@ -439,7 +440,7 @@ static int eap_aka_initiate(void *type_data, EAP_HANDLER *handler)
 
 	//type_data = type_data;  /* shut up compiler */
 	//rlm_eap_aka_t *inst = (rlm_eap_aka_t *) type_data;
-	ess = malloc(sizeof(struct eap_aka_server_state));
+	ess = (eap_aka_server_state *)malloc(sizeof(struct eap_aka_server_state));
 	if(ess == NULL) {
 		radlog_request(L_ERR, 0, handler->request, "%s %d - [RLM_EAP_AKA] no space for eap aka state", __FILE__, __LINE__);
 		 pairadd(&handler->request->packet->vps, pairmake("Kineto-Access-Detail", 
@@ -500,7 +501,7 @@ static int process_eap_aka_challenge(EAP_HANDLER *handler, VALUE_PAIR *vps)
 	} else {
 		int i, j;
 		unsigned char macline[20*3];
-		char *m = macline;
+		char *m = (char*)macline;
 
 		j=0;
 		for (i = 0; i < EAPSIM_CALCMAC_SIZE; i++) {
@@ -556,7 +557,7 @@ static int process_eap_aka_challenge(EAP_HANDLER *handler, VALUE_PAIR *vps)
   {
 		int i, j;
 		unsigned char resline[16*3];
-		char *m = resline;
+		char *m = (char*)resline;
 
 		j=0;
 		for (i = 0; i < res->length; i++)
@@ -677,7 +678,7 @@ static int eap_aka_authenticate(void *arg, EAP_HANDLER *handler)
 				"No subtype attribute from request", T_OP_EQ));
 		return 0;
 	}
-	subtype = vp->lvalue;
+	subtype = (eapaka_subtype)vp->lvalue;
 
 	switch(ess->state) {
 	case eapaka_server_challenge:
@@ -706,7 +707,7 @@ static int eap_aka_authenticate(void *arg, EAP_HANDLER *handler)
         {
             char client_error_code_string[64];
             radlog_request(L_ERR, 0, handler->request, "%s %d - [RLM_EAP_AKA] Client rejected AKA-Challenge with client-error message client-error-code = %s", __FILE__, __LINE__, 
-                   aka_clienterrorcode2name(vp->lvalue,
+                   aka_clienterrorcode2name((eapaka_clienterrorcodes)vp->lvalue,
                                             client_error_code_string,
                                             64));
         }
