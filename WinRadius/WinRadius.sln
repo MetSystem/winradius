@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRadiusClient", "WinRadiu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winradiusd", "winradiusd\winradiusd.vcxproj", "{2A402555-8126-4A05-AE98-CA2D40440CF6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "radiusclient", "radiusclient\radiusclient.vcxproj", "{112ABD13-9016-4669-8456-1DCE9605A563}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Debug|Win32.Build.0 = Debug|Win32
 		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Release|Win32.ActiveCfg = Release|Win32
 		{2A402555-8126-4A05-AE98-CA2D40440CF6}.Release|Win32.Build.0 = Release|Win32
+		{112ABD13-9016-4669-8456-1DCE9605A563}.Debug|Win32.ActiveCfg = Debug|Win32
+		{112ABD13-9016-4669-8456-1DCE9605A563}.Debug|Win32.Build.0 = Debug|Win32
+		{112ABD13-9016-4669-8456-1DCE9605A563}.Release|Win32.ActiveCfg = Release|Win32
+		{112ABD13-9016-4669-8456-1DCE9605A563}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
