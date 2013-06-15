@@ -214,6 +214,7 @@ extern module_t rlm_attr_filter;
 extern module_t rlm_sql;
 /* and so on ... */
 
+extern EAP_TYPE rlm_eap_aka;
 extern EAP_TYPE rlm_eap_md5;
 extern EAP_TYPE rlm_eap_leap;
 extern EAP_TYPE rlm_eap_gtc;
@@ -240,6 +241,7 @@ static const lt_dlmodule_t lt_dlmodules[] = {
 	{ "rlm_eap", &rlm_eap },
 	{ "rlm_sql", &rlm_sql},
 
+	{ "rlm_eap_aka", &rlm_eap_aka },
 	{ "rlm_eap_md5", &rlm_eap_md5 },
 	{ "rlm_eap_leap", &rlm_eap_leap },
 	{ "rlm_eap_gtc", &rlm_eap_gtc },
