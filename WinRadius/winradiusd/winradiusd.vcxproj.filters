@@ -447,6 +447,15 @@
     <ClCompile Include="..\src\modules\rlm_sqlippool\rlm_sqlippool.cpp">
       <Filter>源文件\module\rlm_sqlippool</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\rlm_eap_aka.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lib\3gppsecurity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modules\rlm_eap\eapakalib.cpp">
+      <Filter>源文件\module\rlm_eap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mschap.h">
