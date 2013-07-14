@@ -27,10 +27,9 @@ RCSID("$Id$")
 
 #include <freeradius-devel/libradius.h>
 
+#include <process.h>
 #include <ctype.h>
-
 #include <math.h>
-
 #if HAVE_GETOPT_H
 #	include <getopt.h>
 #endif
@@ -38,17 +37,14 @@ RCSID("$Id$")
 #include <freeradius-devel/conf.h>
 #include <freeradius-devel/radpaths.h>
 #include <freeradius-devel/md5.h>
-#include <freeradius-devel/3gppsecurity.h>
 
 #include "eap_types.h"
 #include "eap_sim.h"
-#include "eap_aka.h"
 
 extern int sha1_data_problems;
 
 static int retries = 10;
-//modify by wuweijie 2012-12-28 3->10
-static float timeout = 60;
+static float timeout = 3;
 static const char *secret = NULL;
 static int do_output = 1;
 static int do_summary = 0;
@@ -67,7 +63,6 @@ int debug_flag = 0;
 char password[256];
 
 struct eapsim_keys eapsim_mk;
-struct eapaka_keys eapaka_mk;
 
 static void map_eap_types(RADIUS_PACKET *req);
 static void unmap_eap_types(RADIUS_PACKET *rep);
@@ -92,7 +87,6 @@ static void NEVER_RETURNS usage(void)
 	fprintf(stderr, "  -h          Print usage help information.\n");
 	fprintf(stderr, "  -i id       Set request id to 'id'.  Values may be 0..255\n");
 	fprintf(stderr, "  -S file     read secret from file, not command line.\n");
-	fprintf(stderr, "  -p number   subsequent thread number.\n");
 	fprintf(stderr, "  -q          Do not print anything out.\n");
 	fprintf(stderr, "  -s          Print out summary information of auth results.\n");
 	fprintf(stderr, "  -v          Show program version information.\n");
@@ -209,17 +203,12 @@ static int send_packet(RADIUS_PACKET *req, RADIUS_PACKET **rep)
 	int i;
 	struct timeval	tv;
 
-	int sendresult = 0;
-
 	for (i = 0; i < retries; i++) {
 		fd_set		rdfdesc;
 
 		debug_packet(req, R_SENT);
-		//modify by wuweijie 
-		//if send fail, resend immediately
-		sendresult = rad_send(req, NULL, secret);
-		if (sendresult <= 0)
-			sendresult = rad_send(req, NULL, secret);
+
+		rad_send(req, NULL, secret);
 
 		/* And wait for reply, timing out as necessary */
 		FD_ZERO(&rdfdesc);
@@ -286,9 +275,9 @@ static int send_packet(RADIUS_PACKET *req, RADIUS_PACKET **rep)
 	}
 
 	/* libradius debug already prints out the value pairs for us */
-	//if (!fr_debug_flag && do_output) {
-	//	debug_packet(*rep, R_RECV);
-	//}
+	if (!fr_debug_flag && do_output) {
+		debug_packet(*rep, R_RECV);
+	}
 	if((*rep)->code == PW_AUTHENTICATION_ACK) {
 		totalapp++;
 	} else if ((*rep)->code == PW_AUTHENTICATION_REJECT) {
@@ -333,13 +322,8 @@ static void cleanresp(RADIUS_PACKET *resp)
  *
  * pick a supported version, put it into the reply, and insert a nonce.
  */
-#ifdef __HYUN__ORG__
 static int process_eap_start(RADIUS_PACKET *req,
 			     RADIUS_PACKET *rep)
-#else
-static int process_eap_sim_start(RADIUS_PACKET *req,
-			     RADIUS_PACKET *rep)
-#endif
 {
 	VALUE_PAIR *vp, *newvp;
 	VALUE_PAIR *anyidreq_vp, *fullauthidreq_vp, *permanentidreq_vp;
@@ -504,13 +488,8 @@ static int process_eap_sim_start(RADIUS_PACKET *req,
  * values.
  *
  */
-#ifdef __HYUN__ORG__
 static int process_eap_challenge(RADIUS_PACKET *req,
- 				 RADIUS_PACKET *rep)
-#else
-static int process_eap_sim_challenge(RADIUS_PACKET *req,
 				 RADIUS_PACKET *rep)
-#endif
 {
 	VALUE_PAIR *newvp;
 	VALUE_PAIR *mac, *randvp;
@@ -711,7 +690,7 @@ static int respond_eap_sim(RADIUS_PACKET *req,
 		statevp->vp_integer = eapsim_client_init;
 		pairreplace(&(resp->vps), statevp);
 	}
-	state = statevp->vp_integer;
+	state = (eapsim_clientstates)statevp->vp_integer;
 
 	/*
 	 * map the attributes, and authenticate them.
@@ -722,7 +701,7 @@ static int respond_eap_sim(RADIUS_PACKET *req,
 	{
 		return 0;
 	}
-	subtype = vp->vp_integer;
+	subtype = (eapsim_subtype)vp->vp_integer;
 
 	/*
 	 * look for the appropriate state, and process incoming message
@@ -731,11 +710,7 @@ static int respond_eap_sim(RADIUS_PACKET *req,
 	case eapsim_client_init:
 		switch(subtype) {
 		case eapsim_start:
-#if __HYUN__ORG__
- 			newstate = process_eap_start(req, resp);
-#else
-			newstate = process_eap_sim_start(req, resp);	//modify by wuweijie 2012-03-08 to support aka
-#endif
+			newstate = (eapsim_clientstates)process_eap_start(req, resp);
 			break;
 
 		case eapsim_challenge:
@@ -754,19 +729,11 @@ static int respond_eap_sim(RADIUS_PACKET *req,
 		switch(subtype) {
 		case eapsim_start:
 			/* NOT SURE ABOUT THIS ONE, retransmit, I guess */
-#if __HYUN__ORG__
- 			newstate = process_eap_start(req, resp);
-#else
-			newstate = process_eap_sim_start(req, resp);	//modify by wuweijie 2012-03-08 to support aka
-#endif
+			newstate = (eapsim_clientstates)process_eap_start(req, resp);
 			break;
 
 		case eapsim_challenge:
-#if __HYUN__ORG__
- 			newstate = process_eap_challenge(req, resp);
-#else
-			newstate = process_eap_sim_challenge(req, resp);	//modify by wuweijie 2012-03-08 to support aka
-#endif
+			newstate = (eapsim_clientstates)process_eap_challenge(req, resp);
 			break;
 
 		default:
@@ -784,7 +751,7 @@ static int respond_eap_sim(RADIUS_PACKET *req,
 			sim_state2name(state, statenamebuf, sizeof(statenamebuf)));
 		return 0;
 	}
-	
+
 	/* copy the eap state object in */
 	pairreplace(&(resp->vps), eapid);
 
@@ -795,248 +762,6 @@ static int respond_eap_sim(RADIUS_PACKET *req,
 	pairreplace(&(resp->vps), radstate);
 
 	statevp->vp_integer = newstate;
-	return 1;
-}
-
- 
-/*
- * we got an EAP-Request/Aka/Challenge message in a legal state.
- *
- * use the RAND challenge to produce the SRES result, and then
- * use that to generate a new MAC.
- *
- * for the moment, we ignore the RANDs, then just plug in the SRES
- * values.
- *
- */
-static int process_eap_aka_challenge(RADIUS_PACKET *req,
-				 RADIUS_PACKET *rep)
-{	
-	VALUE_PAIR *newvp;
-	VALUE_PAIR *mac, *randvp,*autn;
-	//VALUE_PAIR *ik,*ck,*res,*local_autn;
-	VALUE_PAIR *username;
-	uint8_t calcmac[20];
-
-	/* look for the AT_MAC, AT_AUTN and the challenge data */
-	mac    = pairfind(req->vps, ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_MAC);
-	randvp = pairfind(req->vps, ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_RAND);
-	autn   = pairfind(req->vps, ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_AUTN);
-	if(mac == NULL || rand == NULL || autn == NULL) {
-		fprintf(stderr, "radeapclient: challenge message needs to contain RAND,AUTN and MAC\n");
-		return 0;
-	}
-
-	/*
-	 * now dig up the sres values from the response packet,
-	 * which were put there when we read things in.
-	 *
-	 */
-	u8 randnum[16];
-	memcpy(randnum, randvp->vp_strvalue+2, 16);
-	u8 k[16];
-	VALUE_PAIR *temp = pairfind(rep->vps, ATTRIBUTE_EAP_AKA_K);
-	memcpy(k, temp->vp_strvalue, 16);
-	u8 amf[2];
-	temp = pairfind(rep->vps, ATTRIBUTE_EAP_AKA_AMF);
-	memcpy(amf, temp->vp_strvalue, 2);
-	u8 op[16];
-	temp = pairfind(rep->vps, ATTRIBUTE_EAP_AKA_OP);
-	memcpy(op, temp->vp_strvalue, 16);
-
-	u8 opc[16];
-	temp = pairfind(rep->vps, ATTRIBUTE_EAP_AKA_OPC);
-	if(temp == NULL || temp->length != 16)
-	{
-		memset(opc, 0, 16);
-	}
-	else
-		memcpy(opc, temp->vp_strvalue, 16);
-	u8 sqn[6];
-	temp = pairfind(rep->vps, ATTRIBUTE_EAP_AKA_SQN);
-	memcpy(sqn, temp->vp_strvalue, 6);
-	
-	u8 reqres[8];
-	u8 reqck[16];
-	u8 reqik[16];
-	u8 reqak[6];
-	//u8 autn[16];
-	//u8 mac_s[8];
-	//f1(k, randnum, sqn, amf, mac_s, op, opc, 32, 0);
-	f2345(k, randnum, reqres, reqck, reqik, reqak, op, opc, 
-		19, 47, 73, 1, 2, 4);
-	username = pairfind(rep->vps, PW_USER_NAME);
-	if(username == NULL)
-	{
-		fprintf(stderr, "radeapclient: We need to have a User-Name attribute!\n");
-		return 0;
-	}
-	memcpy(eapaka_mk.identity, username->vp_strvalue, strlen(username->vp_strvalue));
-	eapaka_mk.identitylen = strlen(username->vp_strvalue);
-	memcpy(eapaka_mk.rand, randnum, 16);
-	memcpy(eapaka_mk.res, reqres, 8);
-	memcpy(eapaka_mk.ik, reqik, 16);
-	memcpy(eapaka_mk.ck, reqck, 16);
-	memcpy(eapaka_mk.autn, autn->vp_strvalue+2, 16);
-
-	u8 reqsqn[6];
-	memcpy(reqsqn, eapaka_mk.autn, 6);
-	memxor(reqsqn, reqak, 6);
-	
-	/* all set, calculate keys */
-	eapaka_calculate_keys(&eapaka_mk);
-
-	/* verify the MAC, now that we have all the keys. */
-	if(eapsim_checkmac(req->vps, eapaka_mk.K_aut,
-                     NULL,0,
-                     calcmac)) {
-		/* form new response clear of any EAP stuff */
-		cleanresp(rep);
-		// add by wuweijie check sqn
-		long long lrealsqn = sqn[5]*pow(2.0,0) + sqn[4]*pow(2.0,8) + sqn[3]*pow(2.0,16) + 
-			sqn[2]*pow(2.0,24) + sqn[1]*pow(2.0,32) + sqn[0]*pow(2.0,40);
-		long long lreqsqn = reqsqn[5]*pow(2.0,0) + reqsqn[4]*pow(2.0,8) + reqsqn[3]*pow(2.0,16) + 
-			reqsqn[2]*pow(2.0,24) + reqsqn[1]*pow(2.0,32) + reqsqn[0]*pow(2.0,40); 
-		printf("realsqn:%ld, reqsqn:%ld\n", lrealsqn, lreqsqn);
-		if ((lreqsqn -lrealsqn)%32 != 0)
-		{
-			u8 newak[6];
-			f5star(k, randnum, newak, op, opc, 91, 8);			
-			memxor(sqn, newak, 6);			
-			newvp = paircreate(ATTRIBUTE_EAP_SIM_SUBTYPE, PW_TYPE_INTEGER);
-			newvp->lvalue = eapaka_synchronization_failure;
-			pairreplace(&(rep->vps), newvp);
-			
-			newvp = paircreate(ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_AUTS, PW_TYPE_OCTETS);
-			memcpy(&newvp->vp_strvalue, sqn, 6);
-			memset(&newvp->vp_strvalue+6, 0, 8);
-			newvp->length = 14;
-		  	pairreplace(&(rep->vps), newvp);
-		}
-		else
-		{
-		/* mark the subtype as being EAP-AKA/Response/Aka-Challenge */
-		newvp = paircreate(ATTRIBUTE_EAP_SIM_SUBTYPE, PW_TYPE_INTEGER);
-		newvp->lvalue = eapaka_challenge;
-		pairreplace(&(rep->vps), newvp);
-		/*
-		 * fill the SIM_MAC with a field that will in fact get appended
-		 * to the packet before the MAC is calculated
-		 */
-		newvp = paircreate(ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_RES, PW_TYPE_OCTETS);
-		memset(newvp->vp_strvalue,        0, 2); /* clear reserved bytes */
-		memcpy(&newvp->vp_strvalue[2], eapaka_mk.res, EAPSIM_RES_SIZE);
-		newvp->length = 2+EAPSIM_RES_SIZE;
-	  	pairreplace(&(rep->vps), newvp);
-
-		newvp = paircreate(ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_MAC,
-				   PW_TYPE_OCTETS);
-		memset(newvp->vp_strvalue,0x0,EAPSIM_CALCMAC_SIZE);
-		newvp->length = EAPSIM_CALCMAC_SIZE;
-		pairreplace(&(rep->vps), newvp);
-
-		newvp = paircreate(ATTRIBUTE_EAP_SIM_KEY, PW_TYPE_OCTETS);
-		memcpy(newvp->vp_strvalue,    eapaka_mk.K_aut, EAPSIM_AUTH_SIZE);
-		newvp->length = EAPSIM_AUTH_SIZE;
-		pairreplace(&(rep->vps), newvp);
-		}
-		pairdelete(&(rep->vps),ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_AUTN);
-	} else {
-		int i, j;
-		j=0;
-		printf("calculated MAC (");
-		for (i = 0; i < 20; i++) {
-			if(j==4) {
-				printf("_");
-				j=0;
-			}
-			j++;
-			printf("%02x", calcmac[i]);
-		}
-		printf(" did not match\n");
-		cleanresp(rep);
-
-		/* mark the subtype as being EAP-AKA/Response/Aka-Challenge */
-		newvp = paircreate(ATTRIBUTE_EAP_SIM_SUBTYPE, PW_TYPE_INTEGER);
-		newvp->lvalue = eapaka_client_error;
-		pairreplace(&(rep->vps), newvp);
-		
-		newvp = paircreate(ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_CLIENT_ERROR_CODE, PW_TYPE_OCTETS);
-		memset(newvp->vp_strvalue, 0, 2); 
-		newvp->length = 2;
-	  	pairreplace(&(rep->vps), newvp);
-		pairdelete(&(rep->vps),ATTRIBUTE_EAP_SIM_BASE+PW_EAP_SIM_AUTN);
-	}
-	return 1;
-}
-/*
- * this code runs the EAP-AKA client state machine.
- * the *request* is from the server.
- * the *reponse* is to the server.
- *
- */
-static int respond_eap_aka(RADIUS_PACKET *req,
-			   RADIUS_PACKET *resp)
-{
-	enum eapaka_subtype subtype;
-	VALUE_PAIR *vp, *radstate, *eapid;
-	char /*statenamebuf[32], */subtypenamebuf[32];
-
-	if ((radstate = paircopy2(req->vps, PW_STATE)) == NULL)
-	{
-		return 0;
-	}
-
-	if ((eapid = paircopy2(req->vps, ATTRIBUTE_EAP_ID)) == NULL)
-	{
-		return 0;
-	}
-
-
-	/*
-	 * map the attributes, and authenticate them.
-	 */
-	unmap_eapaka_types(req);
-
-	//printf("<+++ EAP-aka decoded packet:\n");
-	//vp_printlist(stdout, req->vps);
-
-	if((vp = pairfind(req->vps, ATTRIBUTE_EAP_SIM_SUBTYPE)) == NULL)
-	{
-		return 0;
-	}
-	subtype = vp->lvalue;
-
-	/*
-	 * look for the appropriate state, and process incoming message
-	 */
-  switch(subtype) {
-      case eapaka_challenge:
-          if (!process_eap_aka_challenge(req, resp))
-              return 0;
-          break;
-          
-      case eapaka_authentication_reject:
-      case eapaka_client_error:
-      case eapaka_notification:
-      case eapaka_reauth:
-      default:
-          fprintf(stderr, "radeapclient: aka in state client_init message %s is illegal. Reply dropped.\n",
-                  aka_subtype2name(subtype, subtypenamebuf, sizeof(subtypenamebuf)));
-          /* invalid state, drop message */
-          return 0;
-  }
-
-
-	/* copy the eap state object in */
-	pairreplace(&(resp->vps), eapid);
-
-	/* update stete info, and send new packet */
-	map_eapaka_types(resp);
-
-	/* copy the radius state object in */
-	pairreplace(&(resp->vps), radstate);
-
 	return 1;
 }
 
@@ -1135,14 +860,6 @@ static int sendrecv_eap(RADIUS_PACKET *rep)
 	} else {
 		*password = '\0';
 	}
-	VALUE_PAIR *usernamevp = pairfind(rep->vps, 1);
-	char username[15];
-	if(usernamevp != NULL)
-		memcpy(username, usernamevp->vp_strvalue, 15);
-
-	time_t timep;
-	time(&timep);
-	//printf("%s sendrecv_eap begin req username:%s\n", ctime(&timep), username);
 
  again:
 	rep->id++;
@@ -1242,37 +959,30 @@ static int sendrecv_eap(RADIUS_PACKET *rep)
 				goto again;
 			}
 			break;
-		case ATTRIBUTE_EAP_BASE+PW_EAP_AKA:	//add by wuweijie 2012-03-08 to support aka
-			if(respond_eap_aka(req, rep))
-			{
-				goto again;
-			}
-			break;
 		}
 	}
-	//printf("sendrecv_eap end req username:%s\n", username);
+
 	return 1;
 }
 
-//#define THREADCOUNT 1000
 
 int main(int argc, char **argv)
 {
-	//RADIUS_PACKET *req;
+	RADIUS_PACKET *req;
 	char *p;
 	int c;
 	int port = 0;
 	char *filename = NULL;
 	FILE *fp;
 	int count = 1;
-	int id = 0;
-	int THREADCOUNT = 1;
+	int id;
 
+	id = ((int)getpid() & 0xff);
 	fr_debug_flag = 0;
 
 	radlog_dest = RADLOG_STDERR;
 
-	while ((c = getopt(argc, argv, "c:d:f:hi:p:qst:r:S:xXv:z")) != EOF)
+	while ((c = getopt(argc, argv, "c:d:f:hi:qst:r:S:xXv")) != EOF)
 	{
 		switch(c) {
 		case 'c':
@@ -1355,12 +1065,6 @@ int main(int argc, char **argv)
                        }
                        secret = filesecret;
 		       break;
-		//add by wuweijie subsequent number
-		case 'p':
-			if (NULL == optarg || !isdigit((int) *optarg))
-				usage();
-			THREADCOUNT = atoi(optarg);
-			break;
 		case 'h':
 		default:
 			usage();
@@ -1378,27 +1082,13 @@ int main(int argc, char **argv)
 	if (dict_init(radius_dir, RADIUS_DICTIONARY) < 0) {
 		fr_perror("radclient");
 		return 1;
-	} 
-	if (0 == THREADCOUNT)
-		THREADCOUNT = 1;
-	RADIUS_PACKET *req[THREADCOUNT];
-
-	//if ((req = rad_alloc(1)) == NULL) {
-	//	fr_perror("radclient");
-	//	exit(1);
-	//}
-	//modify by wuweijie 
-	int i;
-	for(i=0; i<THREADCOUNT; i++)
-	{
-		if((req[i] = rad_alloc(1)) == NULL)
-		{
-			fr_perror("radclient:%d" + i);
-			exit(1);
-		}
-		//req[i]->id = id;
-		req[i]->id = (int)getpid() & 0xff;
 	}
+
+	if ((req = rad_alloc(1)) == NULL) {
+		fr_perror("radclient");
+		exit(1);
+	}
+
 #if 0
 	{
 		FILE *randinit;
@@ -1413,8 +1103,8 @@ int main(int argc, char **argv)
 	}
 	fr_randinit(&randctx, 1);
 #endif
-	//delete by wuwiejie 
-	//req->id = id;
+
+	req->id = id;
 
 	/*
 	 *	Strip port from hostname if needed.
@@ -1427,32 +1117,30 @@ int main(int argc, char **argv)
 	/*
 	 *	See what kind of request we want to send.
 	 */
-	for(i=0;i<THREADCOUNT; i++)
-	{
 	if (strcmp(argv[2], "auth") == 0) {
 		if (port == 0) port = getport("radius");
 		if (port == 0) port = PW_AUTH_UDP_PORT;
-		req[i]->code = PW_AUTHENTICATION_REQUEST;
+		req->code = PW_AUTHENTICATION_REQUEST;
 
 	} else if (strcmp(argv[2], "acct") == 0) {
 		if (port == 0) port = getport("radacct");
 		if (port == 0) port = PW_ACCT_UDP_PORT;
-		req[i]->code = PW_ACCOUNTING_REQUEST;
+		req->code = PW_ACCOUNTING_REQUEST;
 		do_summary = 0;
 
 	} else if (strcmp(argv[2], "status") == 0) {
 		if (port == 0) port = getport("radius");
 		if (port == 0) port = PW_AUTH_UDP_PORT;
-		req[i]->code = PW_STATUS_SERVER;
+		req->code = PW_STATUS_SERVER;
 
 	} else if (strcmp(argv[2], "disconnect") == 0) {
 		if (port == 0) port = PW_POD_UDP_PORT;
-		req[i]->code = PW_DISCONNECT_REQUEST;
+		req->code = PW_DISCONNECT_REQUEST;
 
 	} else if (isdigit((int) argv[2][0])) {
 		if (port == 0) port = getport("radius");
 		if (port == 0) port = PW_AUTH_UDP_PORT;
-		req[i]->code = atoi(argv[2]);
+		req->code = atoi(argv[2]);
 	} else {
 		usage();
 	}
@@ -1460,11 +1148,10 @@ int main(int argc, char **argv)
 	/*
 	 *	Resolve hostname.
 	 */
-	req[i]->dst_port = port;
-	if (ip_hton(argv[1], AF_INET, &req[i]->dst_ipaddr) < 0) {
+	req->dst_port = port;
+	if (ip_hton(argv[1], AF_INET, &req->dst_ipaddr) < 0) {
 		fprintf(stderr, "radclient: Failed to find IP address for host %s\n", argv[1]);
 		exit(1);
-	}
 	}
 
 	/*
@@ -1491,58 +1178,22 @@ int main(int argc, char **argv)
 	/*
 	 *	Send request.
 	 */
-	for(i=0;i<THREADCOUNT;i++)
-	{
-	if ((req[i]->sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+	if ((req->sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 		perror("radclient: socket: ");
 		exit(1);
 	}
-	}
-	while(!filedone) {
-		if(req[0]->vps) pairfree(&req[0]->vps);
 
-		if ((req[0]->vps = readvp2(fp, &filedone, "radeapclient:"))
+	while(!filedone) {
+		if(req->vps) pairfree(&req->vps);
+
+		if ((req->vps = readvp2(fp, &filedone, "radeapclient:"))
 		    == NULL) {
 			break;
 		}
-		//sendrecv_eap(req[i]);
+
+		sendrecv_eap(req);
 	}
-	char username[15];
-	for(i=1; i<THREADCOUNT; i++)
-	{
-		req[i]->vps = paircopy(req[0]->vps);
-		req[i]->id = id + 2*i;
-		//find User-Name
-        VALUE_PAIR *usernamepair = pairfind(req[0]->vps, 1);
-		long identity = atol(usernamepair->vp_strvalue);
-		//printf("identity:%s->%ld + %d\n", usernamepair->vp_strvalue, identity, i);
-		identity = identity + 1;
-		memset(username, 0, 15);
-		sprintf(username, "%ld", identity);
-		memcpy(usernamepair->vp_strvalue, username, 15);
-		//find EAP-Type-Identity
-		VALUE_PAIR *eaptypepair = pairfind(req[0]->vps, 1281);
-		memcpy(eaptypepair->vp_strvalue, username, 15);
-		//printf("username:%s, eaptypeidentity:%s\n",usernamepair->vp_strvalue, eaptypepair->vp_strvalue);
-		//find EAP-Aka-K
-		//VALUE_PAIR *kpair = pairfind(req[0]->vps, 1218);
-	}
-	pthread_t threadid[THREADCOUNT];
-	for(i=0; i<THREADCOUNT; i++)
-	{
-		int ret;
-		ret = pthread_create(&threadid[i], NULL, (void *)sendrecv_eap, req[i]);
-		if(ret != 0)
-		{
-			printf("create pthread error\n");
-			exit(1);
-		}
-		printf("create thread %d success\n", i);
-	}
-	for(i=0; i<THREADCOUNT; i++)
-	{
-		pthread_join(threadid[i], NULL);
-	}
+
 	if(do_summary) {
 		printf("\n\t   Total approved auths:  %d\n", totalapp);
 		printf("\t     Total denied auths:  %d\n", totaldeny);
@@ -1625,7 +1276,7 @@ static void map_eap_types(RADIUS_PACKET *req)
 		ep.id   = id;
 		ep.type.type = eap_type;
 		ep.type.length = vp->length;
-		ep.type.data = malloc(vp->length);
+		ep.type.data = (uint8_t *)malloc(vp->length);
 		memcpy(ep.type.data,vp->vp_octets, vp->length);
 		eap_basic_compose(req, &ep);
 	}
