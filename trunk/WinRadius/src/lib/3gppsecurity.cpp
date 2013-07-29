@@ -43,7 +43,7 @@ void f1(u8 k[16], u8 rand[16], u8 sqn[6], u8 amf[2],
   u8 i;
 
   RijndaelKeySchedule( k );
-  //add by wuweijie 2012-09-03
+  
   ComputeOPc( op, op_c, opc );
 
   for (i=0; i<16; i++)
@@ -66,7 +66,7 @@ void f1(u8 k[16], u8 rand[16], u8 sqn[6], u8 amf[2],
 
   //for (i=0; i<16; i++)
   //  rijndaelInput[(i+8) % 16] = in1[i] ^ op_c[i];
-  //modify by wuweijie 2012-4-25
+  
   //r1 = 32
   //for (i=0; i<16; i++)
   //  rijndaelInput[(i+12) % 16] = in1[i] ^ op_c[i];
@@ -119,7 +119,7 @@ void f2345(u8 k[16], u8 rand[16], u8 res[8], u8 ck[16], u8 ik[16],
   u8 tmp;
 
   RijndaelKeySchedule( k );	
-  //add by wuweijie 2012-09-03
+ 
 	ComputeOPc( op, op_c, opc );
 
   for (i=0; i<16; i++)
@@ -129,7 +129,7 @@ void f2345(u8 k[16], u8 rand[16], u8 res[8], u8 ck[16], u8 ik[16],
   /* To obtain output block OUT2: XOR OPc and TEMP,    *
    * rotate by r2=0, and XOR on the constant c2 (which *
    * is all zeroes except that the last bit is 1).     */
-  //modify wuweijie 2012-4-25
+ 
   //for (i=0; i<16; i++)
   //  rijndaelInput[i] = temp[i] ^ op_c[i];
   /* r2 = 19 */
@@ -273,7 +273,7 @@ void f1star( u8 k[16], u8 rand[16], u8 sqn[6], u8 amf[2],
 
   RijndaelKeySchedule( k );
 
-  //add by wuweijie 2012-09-03
+  
 	ComputeOPc( op, op_c, opc );
 
   for (i=0; i<16; i++)
@@ -344,7 +344,7 @@ void f5star(u8 k[16], u8 rand[16], u8 ak[6], u8 op[16],
 
   RijndaelKeySchedule( k );
 
-  //add by wuweijie 2012-09-03
+  
 	ComputeOPc( op, op_c, opc );
 
   for (i=0; i<16; i++)
